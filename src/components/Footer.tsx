@@ -1,0 +1,201 @@
+import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+
+export default function Footer() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const footerLinks = {
+    company: [
+      { name: 'Home', action: () => scrollToSection('home') },
+      { name: 'About Us', action: () => scrollToSection('about') },
+      { name: 'Services', action: () => scrollToSection('services') },
+    ],
+    destinations: [
+      { name: 'Ooty', action: () => scrollToSection('south-india-paradise') },
+      { name: 'Munnar', action: () => scrollToSection('south-india-paradise') },
+      { name: 'Kodaikanal', action: () => scrollToSection('south-india-paradise') },
+    ],
+    support: [
+      { name: 'Contact Us', action: () => scrollToSection('contact') },
+    ]
+  };
+
+  const instagramImages = [
+    '/images/Ooty_Card.webp',
+    '/images/Munnar_Card.webp',
+    '/images/Kodaikanal_Card.webp',
+    '/images/Tea Gardens.webp',
+    '/images/Pine Forest.webp',
+    '/images/Ooty-lake.webp'
+  ];
+
+  return (
+    <footer className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-white/10">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+          {/* Brand Identity */}
+          <div className="lg:col-span-2">
+            <button onClick={() => scrollToSection('home')} className="flex items-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xl">T</span>
+              </div>
+              <span className="text-2xl font-bold text-text-main dark:text-white">Dayoff Journeys</span>
+            </button>
+            <p className="text-text-muted dark:text-gray-400 mb-6 max-w-sm">
+              Crafting unforgettable journeys since 2020. Your trusted partner for authentic travel experiences around the globe.
+            </p>
+
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
+                <Mail className="w-5 h-5 text-primary" />
+                <span>dayoffjourneys@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
+                <Phone className="w-5 h-5 text-primary" />
+                <span>+91 9633403404</span>
+              </div>
+              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
+                <MapPin className="w-5 h-5 text-primary" />
+                <span>123 Travel Street, NY 10001</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Company Links */}
+          <div>
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Company</h3>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <button
+                    onClick={link.action}
+                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Destinations Links */}
+          <div>
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Destinations</h3>
+            <ul className="space-y-3">
+              {footerLinks.destinations.map((link) => (
+                <li key={link.name}>
+                  <button
+                    onClick={link.action}
+                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Support</h3>
+            <ul className="space-y-3">
+              {footerLinks.support.map((link) => (
+                <li key={link.name}>
+                  <button
+                    onClick={link.action}
+                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Instagram Feed */}
+        <div className="mb-12">
+          <h3 className="text-lg font-bold text-text-main dark:text-white mb-4 text-center">
+            Follow Our Adventures @DayoffJourneys
+          </h3>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+            {instagramImages.map((image, index) => (
+              <a
+                key={index}
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden rounded-xl"
+              >
+                <img
+                  src={image}
+                  alt={`Instagram post ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Instagram className="w-6 h-6 text-white" />
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-200 dark:border-white/10 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-text-muted dark:text-gray-400 text-sm">
+              © {new Date().getFullYear()} Dayoff Journeys. All rights reserved.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
