@@ -26,6 +26,9 @@ export default function Navigation() {
               <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
                 Home
               </button>
+              <button onClick={() => document.getElementById('south-india-paradise')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-semibold text-text-muted dark:text-gray-400 hover:text-primary transition-colors">
+                Destinations
+              </button>
               <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-semibold text-text-muted dark:text-gray-400 hover:text-primary transition-colors">
                 About
               </button>
@@ -62,6 +65,9 @@ export default function Navigation() {
           <div className="px-6 py-4 space-y-4">
             <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
               Home
+            </button>
+            <button onClick={() => { document.getElementById('south-india-paradise')?.scrollIntoView({ behavior: 'smooth' }); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left w-full">
+              Destinations
             </button>
             <button onClick={() => { document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left w-full">
               About
