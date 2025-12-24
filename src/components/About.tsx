@@ -21,15 +21,17 @@ const values = [
   },
   {
     icon: Globe,
-    title: 'Global Reach',
-    description: 'Connections in over 100 countries bring the world to your doorstep'
+    title: 'Pan India Reach',
+    description: 'Comprehensive service coverage across all of India'
   }
 ];
 
 const branches = [
-  { city: 'New York', address: '123 Travel Street, NY 10001', phone: '+1 (555) 123-4567' },
-  { city: 'London', address: '456 Explorer Lane, London EC1A 1BB', phone: '+44 20 1234 5678' },
-  { city: 'Singapore', address: '789 Wanderlust Road, Singapore 018956', phone: '+65 6123 4567' }
+  {
+    city: 'Malappuram',
+    address: 'East villoor, Indianoor (P.O), Kottakkal, Malappuram, 676503',
+    phone: '+91 9633403404'
+  }
 ];
 
 const stats = [
@@ -46,7 +48,7 @@ export default function About() {
 
       {/* Hero Section */}
       <section className="relative h-[400px] overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80')" }}
         >
@@ -73,13 +75,13 @@ export default function About() {
                 Our Story
               </h2>
               <p className="text-lg text-text-muted dark:text-gray-400 mb-6">
-                What began as a small team of passionate travelers has grown into a trusted global community. 
-                We believe travel isn't just about destinations — it's about transformation, connection, 
+                What began as a small team of passionate travelers has grown into a trusted global community.
+                We believe travel isn't just about destinations — it's about transformation, connection,
                 and the stories we collect along the way.
               </p>
               <p className="text-lg text-text-muted dark:text-gray-400 mb-6">
-                With over 15 years of experience and a network spanning 100+ countries, we've helped 
-                thousands discover the world's hidden gems. Our mission is simple: make extraordinary 
+                With over 15 years of experience and a network spanning 100+ countries, we've helped
+                thousands discover the world's hidden gems. Our mission is simple: make extraordinary
                 travel accessible, authentic, and unforgettable.
               </p>
             </div>
@@ -190,7 +192,7 @@ export default function About() {
               Meet Our Team
             </h2>
             <p className="text-lg text-text-muted dark:text-gray-400 max-w-2xl mx-auto mb-8">
-              A diverse group of travel enthusiasts, local experts, and customer champions 
+              A diverse group of travel enthusiasts, local experts, and customer champions
               dedicated to making your dream trips a reality
             </p>
           </div>

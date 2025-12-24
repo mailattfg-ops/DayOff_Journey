@@ -61,9 +61,13 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-primary" />
                 <span>+91 9633403404</span>
               </div>
-              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span>123 Travel Street, NY 10001</span>
+              <div className="flex items-start gap-3 text-text-muted dark:text-gray-400">
+                <MapPin className="w-5 h-5 text-primary mt-1" />
+                <span>
+                  East villoor, Indianoor (P.O)<br />
+                  Kottakkal, Malappuram<br />
+                  676503
+                </span>
               </div>
             </div>
           </div>
@@ -129,7 +133,7 @@ export default function Footer() {
             {instagramImages.map((image, index) => (
               <a
                 key={index}
-                href="https://instagram.com"
+                href="https://www.instagram.com/dayoffjourneys/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative aspect-square overflow-hidden rounded-xl"
@@ -166,7 +170,7 @@ export default function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/dayoffjourneys/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

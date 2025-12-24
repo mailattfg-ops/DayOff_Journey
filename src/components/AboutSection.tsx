@@ -18,8 +18,8 @@ const values = [
     },
     {
         icon: Globe,
-        title: 'Global Reach',
-        description: 'Connections in over 100 countries bring the world to your doorstep'
+        title: 'Pan India Reach',
+        description: 'Comprehensive service coverage across all of India'
     }
 ];
 
