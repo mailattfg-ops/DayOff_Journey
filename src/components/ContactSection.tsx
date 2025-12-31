@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { Mail, Phone, MessageCircle, MapPin, User, Calendar as CalendarIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,6 +25,7 @@ import {
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { DateRange } from 'react-day-picker';
+import { useLocation } from 'react-router-dom';
 
 const faqs = [
     {
@@ -50,6 +51,7 @@ const faqs = [
 ];
 
 export default function ContactSection() {
+    const location = useLocation();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -57,6 +59,18 @@ export default function ContactSection() {
         date: undefined as DateRange | undefined,
         message: ''
     });
+
+    useEffect(() => {
+        if (location.state?.selectedDestination) {
+            setFormData(prev => ({
+                ...prev,
+                destination: location.state.selectedDestination
+            }));
+
+            // Clear the state so it doesn't persist on refresh or nav
+            window.history.replaceState({}, '');
+        }
+    }, [location.state]);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -192,6 +206,14 @@ export default function ContactSection() {
                                                     <SelectItem value="Ooty">Ooty</SelectItem>
                                                     <SelectItem value="Munnar">Munnar</SelectItem>
                                                     <SelectItem value="Kodaikanal">Kodaikanal</SelectItem>
+                                                    <SelectItem value="Rameswaram">Rameswaram</SelectItem>
+                                                    <SelectItem value="Hampi">Hampi</SelectItem>
+                                                    <SelectItem value="Madurai">Madurai</SelectItem>
+                                                    <SelectItem value="Coorg (Kodagu)">Coorg (Kodagu)</SelectItem>
+                                                    <SelectItem value="Kanyakumari">Kanyakumari</SelectItem>
+                                                    <SelectItem value="Mysuru (Mysore)">Mysuru (Mysore)</SelectItem>
+                                                    <SelectItem value="Alleppey (Alappuzha)">Alleppey (Alappuzha)</SelectItem>
+                                                    <SelectItem value="Thiruvananthapuram">Thiruvananthapuram</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>

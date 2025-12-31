@@ -1,5 +1,6 @@
-import { MapPin, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
 
 export default function HeroSection() {
   const scrollToContact = () => {
@@ -11,21 +12,53 @@ export default function HeroSection() {
 
   const destinations = [
     {
-      name: "Ooty",
-      image: "/images/Ooty.webp",
-      desc: "Queen of Hill Stations"
-    },
-    {
       name: "Munnar",
       image: "/images/munnar.webp",
       desc: "Tea Garden Paradise"
     },
     {
+      name: "Ooty",
+      image: "/images/Ooty.webp",
+      desc: "Queen of Hill Stations"
+    },
+    {
       name: "Kodaikanal",
       image: "/images/kodaikanal.webp",
       desc: "Princess of Hill Stations"
+    },
+    {
+      name: "Mysuru",
+      image: "/images/mysore.webp",
+      desc: "City of Palaces"
+    },
+    {
+      name: "Alappuzha",
+      image: "/images/alleppey.webp",
+      desc: "Venice of the East"
+    },
+    {
+      name: "Kochi",
+      image: "/images/kochi.webp",
+      desc: "Queen of Arabian Sea"
     }
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % destinations.length);
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [destinations.length]);
+
+  // Calculate visible items for infinite scroll effect
+  // We duplicate the items to create a seamless loop effect visually if we were doing infinite scroll,
+  // but for a simple slide, we can just slide the track.
+
+  const extendedDestinations = [...destinations, ...destinations.slice(0, 3)];
+  const totalItems = extendedDestinations.length;
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center">
@@ -73,30 +106,44 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Destination Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}>
-          {destinations.map((dest) => (
-            <div
-              key={dest.name}
-              className="group relative h-64 md:h-80 rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2"
-              onClick={scrollToContact}
-            >
-              <img
-                src={dest.image}
-                alt={dest.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-6">
-                <div className="flex items-center gap-2 text-white mb-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                  <MapPin className="w-4 h-4" />
-                  <span className="text-sm font-bold uppercase tracking-wider">Explore</span>
+        {/* Destination Carousel */}
+        <div className="relative overflow-hidden group/carousel py-8">
+          <div
+            className="flex transition-transform duration-700 ease-in-out md:[--visible-items:2] lg:[--visible-items:3]"
+            style={{
+              // Use CSS variables for responsiveness
+              '--items-count': totalItems,
+              '--current-index': currentIndex,
+              transform: 'translateX(calc(var(--current-index) * -100% / var(--items-count)))',
+              width: 'calc(var(--items-count) * 100% / var(--visible-items, 1))'
+            } as React.CSSProperties}
+          >
+            {extendedDestinations.map((dest, index) => (
+              <div
+                key={`${dest.name}-${index}`}
+                style={{ width: `calc(100% / var(--items-count))` }}
+                className="relative h-64 md:h-80 px-3 shrink-0" // px-3 provides the gap
+                onClick={scrollToContact}
+              >
+                <div className="w-full h-full rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 relative group">
+                  <img
+                    src={dest.image}
+                    alt={dest.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-6">
+                    <div className="flex items-center gap-2 text-white mb-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                      <MapPin className="w-4 h-4" />
+                      <span className="text-sm font-bold uppercase tracking-wider">Explore</span>
+                    </div>
+                    <h2 className="text-3xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{dest.name}</h2>
+                    <p className="text-white/80 text-sm font-medium">{dest.desc}</p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{dest.name}</h2>
-                <p className="text-white/80 text-sm font-medium">{dest.desc}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

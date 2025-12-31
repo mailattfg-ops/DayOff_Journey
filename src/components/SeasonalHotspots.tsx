@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Sun, ArrowLeft, MapPin, Calendar } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -95,6 +96,7 @@ const destinations = [
 ];
 
 export default function SeasonalHotspots() {
+    const navigate = useNavigate();
     const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
 
     const activeData = destinations.find(d => d.id === selectedDestination);
@@ -216,6 +218,18 @@ export default function SeasonalHotspots() {
                         </div>
                     )}
                 </div>
+
+                {/* View All Destinations Button */}
+                {!selectedDestination && (
+                    <div className="text-center mt-12">
+                        <Button
+                            onClick={() => navigate('/destinations')}
+                            className="bg-primary/10 hover:bg-primary text-primary hover:text-white border border-primary/20 px-8 py-6 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105"
+                        >
+                            Explore All Destinations
+                        </Button>
+                    </div>
+                )}
 
             </div>
         </section>

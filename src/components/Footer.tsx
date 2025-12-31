@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -161,15 +161,6 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
                 href="https://www.instagram.com/dayoffjourneys/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -177,24 +168,6 @@ export default function Footer() {
                 className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
               >
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-              >
-                <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
