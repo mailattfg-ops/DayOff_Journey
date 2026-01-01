@@ -11,23 +11,22 @@ export default function Navigation() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-background-dark/95 backdrop-blur-md border-b border-[#f0f4f3] dark:border-white/10">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Left Side: Logo & Navigation */}
           <div className="flex items-center gap-12">
-            {/* Logo */}
             {/* Logo */}
             <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center space-x-2 transition-transform hover:scale-105 cursor-pointer">
               {/* Light Mode Logo (Green) */}
               <img
                 src="/images/green-logo.svg"
                 alt="Dayoff Journeys"
-                className="h-14 w-auto dark:hidden"
+                className="h-24 w-auto dark:hidden relative -my-2"
               />
               {/* Dark Mode Logo (Yellow) */}
               <img
                 src="/images/yellow-logo.svg"
                 alt="Dayoff Journeys"
-                className="h-14 w-auto hidden dark:block"
+                className="h-24 w-auto hidden dark:block relative -my-2"
               />
             </div>
 
