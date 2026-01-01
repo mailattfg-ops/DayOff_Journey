@@ -1,14 +1,21 @@
-import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { allDestinations } from '@/data/destinations';
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
+  const handleBookNow = (title: string) => {
+    navigate('/', { state: { selectedDestination: title } });
+    setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
 
@@ -103,7 +110,7 @@ export default function HeroSection() {
                 key={`${dest.name}-${index}`}
                 style={{ width: `calc(100% / var(--items-count))` }}
                 className="relative h-64 md:h-80 px-3 shrink-0" // px-3 provides the gap
-                onClick={scrollToContact}
+                onClick={() => handleBookNow(dest.name)}
               >
                 <div className="w-full h-full rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 relative group">
                   <img

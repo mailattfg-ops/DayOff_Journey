@@ -90,8 +90,12 @@ export default function SeasonalHotspots() {
 
     const activeData = destinations.find(d => d.id === selectedDestination);
 
-    const handleBookNow = () => {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    const handleBookNow = (title?: string) => {
+        const target = title || activeData?.title || 'South India';
+        navigate('/', { state: { selectedDestination: target } });
+        setTimeout(() => {
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
     };
 
     return (
@@ -196,7 +200,7 @@ export default function SeasonalHotspots() {
                                                 {item.description}
                                             </p>
                                             <Button
-                                                onClick={handleBookNow}
+                                                onClick={() => handleBookNow(activeData?.title)}
                                                 className="w-full bg-primary hover:bg-primary-light text-white text-sm"
                                                 size="sm"
                                             >
