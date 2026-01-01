@@ -13,7 +13,7 @@ export default function Navigation() {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
         <div className="flex items-center justify-between h-20">
           {/* Left Side: Logo & Navigation */}
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-4">
             {/* Logo */}
             <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center space-x-2 transition-transform hover:scale-105 cursor-pointer">
               {/* Light Mode Logo (Green) */}

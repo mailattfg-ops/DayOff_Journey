@@ -69,8 +69,16 @@ export default function ContactSection() {
                 ...prev,
                 destination: location.state.selectedDestination
             }));
+        } else if (location.state?.customDestination) {
+            setFormData(prev => ({
+                ...prev,
+                destination: 'Other',
+                customDestination: location.state.customDestination
+            }));
+        }
 
-            // Clear the state so it doesn't persist on refresh or nav
+        // Clear the state so it doesn't persist on refresh or nav
+        if (location.state) {
             window.history.replaceState({}, '');
         }
     }, [location.state]);
@@ -117,7 +125,7 @@ export default function ContactSection() {
                 <div className="absolute top-1/2 -right-24 w-80 h-80 bg-secondary/10 rounded-full blur-3xl opacity-50"></div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-6 lg:px-20 relative z-10">
+            <div className="max-w-[1440px] mx-auto px-6 lg:px-20 relative z-10 mb-20 lg:mb-24">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
 
                     {/* Left Column: Header & Info */}
@@ -137,17 +145,17 @@ export default function ContactSection() {
                         </p>
 
                         <div className="space-y-6">
-                            <div className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
+                            <a href="tel:+919633403404" className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
                                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors">
                                     <Phone className="w-6 h-6 text-primary group-hover:text-white" />
                                 </div>
                                 <div>
                                     <p className="text-sm text-text-muted">Call Us Anytime</p>
-                                    <p className="text-xl font-bold text-text-main">+91 9633403404</p>
+                                    <p className="text-xl font-bold text-text-main">+91 96334 03404</p>
                                 </div>
-                            </div>
+                            </a>
 
-                            <div className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
+                            <a href="mailto:dayoffjourneys@gmail.com" className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
                                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors">
                                     <Mail className="w-6 h-6 text-primary group-hover:text-white" />
                                 </div>
@@ -155,7 +163,7 @@ export default function ContactSection() {
                                     <p className="text-sm text-text-muted">Send an Email</p>
                                     <p className="text-xl font-bold text-text-main">dayoffjourneys@gmail.com</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 

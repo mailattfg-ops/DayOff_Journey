@@ -1,9 +1,10 @@
-import { ArrowLeft, MapPin, Star, Heart } from 'lucide-react';
+import { ArrowLeft, MapPin, Star, Heart, Search, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState, useMemo } from 'react';
 import { Destination } from './DestinationDetailModal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -17,6 +18,43 @@ export default function DestinationsPage() {
     const navigate = useNavigate();
     const [selectedDest, setSelectedDest] = useState<Destination | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Filter & Search State
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedRegion, setSelectedRegion] = useState('All');
+    const [visibleCount, setVisibleCount] = useState(9);
+
+    const regions = ['All', 'South India', 'North India', 'West India', 'East & North East'];
+
+    const getRegion = (location: string) => {
+        const loc = location.toLowerCase();
+        if (loc.includes('kerala') || loc.includes('tamil nadu') || loc.includes('karnataka') || loc.includes('andhra') || loc.includes('telangana') || loc.includes('chennai') || loc.includes('madurai') || loc.includes('coorg') || loc.includes('hampi') || loc.includes('mysuru') || loc.includes('munnar') || loc.includes('kochi') || loc.includes('alleppey') || loc.includes('trivandrum') || loc.includes('kanyakumari') || loc.includes('rameswaram') || loc.includes('tirupati') || loc.includes('bharananganam')) {
+            return 'South India';
+        }
+        if (loc.includes('delhi') || loc.includes('himachal') || loc.includes('uttarakhand') || loc.includes('uttar pradesh') || loc.includes('jammu') || loc.includes('ladakh') || loc.includes('punjab') || loc.includes('rajasthan') || loc.includes('varanasi') || loc.includes('agra') || loc.includes('rishikesh') || loc.includes('manali') || loc.includes('shimla') || loc.includes('kashmir') || loc.includes('amritsar') || loc.includes('jaipur') || loc.includes('udaipur') || loc.includes('jaisalmer') || loc.includes('badrinath') || loc.includes('kedarnath') || loc.includes('vaishno') || loc.includes('ajmer')) {
+            return 'North India';
+        }
+        if (loc.includes('goa') || loc.includes('maharashtra') || loc.includes('gujarat') || loc.includes('mumbai') || loc.includes('pune') || loc.includes('shirdi')) {
+            return 'West India';
+        }
+        if (loc.includes('west bengal') || loc.includes('odisha') || loc.includes('bihar') || loc.includes('sikkim') || loc.includes('assam') || loc.includes('meghalaya') || loc.includes('arunachal') || loc.includes('kolkata')) {
+            return 'East & North East';
+        }
+        return 'Other';
+    };
+
+    // Filter Logic
+    const filteredDestinations = useMemo(() => {
+        return allDestinations.filter(dest => {
+            const matchesSearch = dest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                dest.location.toLowerCase().includes(searchQuery.toLowerCase());
+
+            const region = getRegion(dest.location);
+            const matchesRegion = selectedRegion === 'All' || region === selectedRegion;
+
+            return matchesSearch && matchesRegion;
+        });
+    }, [searchQuery, selectedRegion]);
 
     const handleExploreClick = (dest: Destination) => {
         setSelectedDest(dest);
@@ -189,13 +227,107 @@ export default function DestinationsPage() {
                 </section>
 
                 {/* All Destinations */}
-                <section>
-                    <h2 className="text-4xl font-bold mb-8">Explore All Destinations</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {allDestinations.map((place) => (
-                            <DestinationCard key={place.id} place={place} />
-                        ))}
+                <section id="all-destinations" className="scroll-mt-24">
+                    <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8">
+                        <h2 className="text-4xl font-bold">Explore All Destinations</h2>
                     </div>
+
+                    {/* Search & Filter Controls */}
+                    <div className="space-y-6 mb-12">
+                        {/* Search Bar */}
+                        <div className="relative max-w-md">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                            <Input
+                                type="text"
+                                placeholder="Search places, locations..."
+                                className="pl-10 h-12 text-lg rounded-full border-2 border-border/50 hover:border-primary/50 focus:border-primary transition-all"
+                                value={searchQuery}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setVisibleCount(9); // Reset visible count on search
+                                }}
+                            />
+                        </div>
+
+                        {/* Category/Region Filters */}
+                        <div className="flex flex-wrap gap-2">
+                            {regions.map(region => (
+                                <Button
+                                    key={region}
+                                    variant={selectedRegion === region ? "default" : "outline"}
+                                    onClick={() => {
+                                        setSelectedRegion(region);
+                                        setVisibleCount(9); // Reset visible count on region change
+                                    }}
+                                    className={`rounded-full border-border/50 ${selectedRegion === region ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'hover:border-primary/50 hover:bg-transparent'}`}
+                                >
+                                    {region}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Destinations Grid */}
+                    {filteredDestinations.length > 0 ? (
+                        <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {filteredDestinations.slice(0, visibleCount).map((place) => (
+                                    <DestinationCard key={place.id} place={place} />
+                                ))}
+                            </div>
+
+                            {/* Load More Button */}
+                            {visibleCount < filteredDestinations.length && (
+                                <div className="mt-12 flex justify-center">
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
+                                        onClick={() => setVisibleCount(prev => prev + 9)}
+                                        className="h-12 px-8 rounded-full border-2 hover:bg-primary hover:text-white hover:border-primary transition-all group"
+                                    >
+                                        Load More Destinations
+                                        <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                                    </Button>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <div className="text-center py-20 bg-muted/30 rounded-3xl">
+                            <p className="text-2xl text-muted-foreground font-medium mb-6">
+                                {searchQuery ? `No destinations found matching "${searchQuery}"` : `No destinations found in ${selectedRegion}`}
+                            </p>
+
+                            <div className="flex flex-col items-center gap-4">
+                                <Button
+                                    onClick={() => {
+                                        const term = searchQuery || selectedRegion;
+                                        navigate('/', { state: { customDestination: term } });
+                                        setTimeout(() => {
+                                            const contactSection = document.getElementById('contact');
+                                            if (contactSection) {
+                                                contactSection.scrollIntoView({ behavior: 'smooth' });
+                                            }
+                                        }, 100);
+                                    }}
+                                    size="lg"
+                                    className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                                >
+                                    Plan a Trip into {searchQuery || selectedRegion}
+                                </Button>
+
+                                <Button
+                                    variant="link"
+                                    onClick={() => {
+                                        setSearchQuery('');
+                                        setSelectedRegion('All');
+                                    }}
+                                    className="text-muted-foreground hover:text-primary"
+                                >
+                                    Clear all filters to see all places
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </section>
             </main>
 

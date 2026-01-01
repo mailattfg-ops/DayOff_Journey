@@ -60,8 +60,10 @@ export default function JourneyRoadmap() {
                                 className="relative flex flex-col items-center text-center group"
                             >
                                 {/* Icon Circle */}
-                                <div className="relative z-10 w-24 h-24 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary transition-all duration-300 group-hover:scale-110 shadow-lg">
-                                    <step.icon className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
+                                <div className="relative z-10 w-24 h-24 rounded-full bg-white dark:bg-background border-4 border-white dark:border-background flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 shadow-lg">
+                                    <div className="w-full h-full rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center group-hover:bg-primary transition-colors">
+                                        <step.icon className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
+                                    </div>
                                 </div>
 
                                 {/* Title */}

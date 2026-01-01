@@ -136,19 +136,21 @@ export default function SeasonalHotspots() {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-                                        <div className="absolute bottom-6 left-6 right-6">
-                                            <h3 className="text-3xl font-bold text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">
+                                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                                            <h3 className="text-3xl font-bold text-white mb-2 transition-transform duration-300">
                                                 {hotspot.title}
                                             </h3>
-                                            <p className="text-white/80 line-clamp-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                                                {hotspot.description}
-                                            </p>
-                                            <div className="flex gap-2 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
-                                                {hotspot.tags.map(tag => (
-                                                    <Badge key={tag} className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border-0">
-                                                        {tag}
-                                                    </Badge>
-                                                ))}
+                                            <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                                                <p className="text-white/80 line-clamp-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                    {hotspot.description}
+                                                </p>
+                                                <div className="flex gap-2 mt-4">
+                                                    {hotspot.tags.map(tag => (
+                                                        <Badge key={tag} className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border-0">
+                                                            {tag}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

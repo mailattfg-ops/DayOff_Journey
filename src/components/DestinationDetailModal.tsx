@@ -51,7 +51,7 @@ export function DestinationDetailModal({ isOpen, onClose, destination, onBookNow
                             <Badge className="mb-2 bg-primary text-white border-none hover:bg-primary/90">
                                 {destination.location}
                             </Badge>
-                            <DialogTitle className="text-3xl md:text-5xl font-bold mb-2">
+                            <DialogTitle className="text-3xl md:text-5xl font-bold mb-6">
                                 {destination.title}
                             </DialogTitle>
                             <div className="flex gap-2 flex-wrap">

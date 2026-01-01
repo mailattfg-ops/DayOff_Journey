@@ -30,7 +30,7 @@ const branches = [
   {
     city: 'Malappuram',
     address: 'East villoor, Indianoor (P.O), Kottakkal, Malappuram, 676503',
-    phone: '+91 9633403404'
+    phone: '+91 96334 03404'
   }
 ];
 

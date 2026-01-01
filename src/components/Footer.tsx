@@ -54,28 +54,33 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+              <a href="mailto:dayoffjourneys@gmail.com" className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
                   <Mail className="w-5 h-5" />
                 </div>
                 <span className="text-base">dayoffjourneys@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+              </a>
+              <a href="tel:+919633403404" className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
                   <Phone className="w-5 h-5" />
                 </div>
-                <span className="text-base">+91 9633403404</span>
-              </div>
-              <div className="flex items-start gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+                <span className="text-base">+91 96334 03404</span>
+              </a>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=East+Villoor,+Indianoor+(P.O),+Kottakkal,+Malappuram,+676503"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors"
+              >
                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all mt-1">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <span className="text-base leading-relaxed">
-                  East villoor, Indianoor (P.O)<br />
+                  East Villoor, Indianoor (P.O)<br />
                   Kottakkal, Malappuram<br />
                   676503
                 </span>
-              </div>
+              </a>
             </div>
           </div>
 
