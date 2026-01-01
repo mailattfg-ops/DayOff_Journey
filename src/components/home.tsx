@@ -1,4 +1,5 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navigation from './Navigation';
 import HeroSection from './HeroSection';
 
@@ -12,6 +13,30 @@ const Footer = lazy(() => import('./Footer'));
 const FloatingWhatsApp = lazy(() => import('./FloatingWhatsApp'));
 
 function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && (location.state as any).scrollTo) {
+      const elementId = (location.state as any).scrollTo;
+
+      const scroll = () => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          // Clear state
+          window.history.replaceState({}, '');
+        } else {
+          // Retry a few times for lazy loaded components
+          setTimeout(scroll, 100);
+        }
+      };
+
+      // Initial delay to ensure page transition/mount
+      setTimeout(scroll, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
   return (
     <div className="min-h-screen w-full bg-background">
       <Navigation />

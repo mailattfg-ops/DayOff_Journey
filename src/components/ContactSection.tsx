@@ -29,26 +29,28 @@ import { useLocation } from 'react-router-dom';
 
 const faqs = [
     {
-        question: 'How do I book a travel package?',
-        answer: 'You can book directly through our website by clicking "View Deal" on any package, or contact us via WhatsApp for personalized assistance. Our team will guide you through the entire process.'
+        question: 'Do you offer customizable tour packages?',
+        answer: 'Yes! We specialize in tailor-made itineraries. Whether you are looking for a honeymoon trip, a family vacation, or a spiritual journey, we can customize the entire plan to suit your preferences and budget.'
     },
     {
-        question: 'What payment methods do you accept?',
-        answer: 'We accept all major credit cards, bank transfers, and popular digital payment platforms. Flexible payment plans are available for packages over $3000.'
+        question: 'What destinations do you cover in South India?',
+        answer: 'We cover all major tourist and spiritual destinations in South India, including Ooty, Munnar, Kodaikanal, Rameswaram, Madurai, Kanyakumari, Wayanad, and Coorg. We also arrange trips to Goa and other tailored locations.'
     },
     {
-        question: 'Can I customize an existing package?',
-        answer: 'Absolutely! Every package can be tailored to your preferences. Contact our travel experts to discuss modifications to itineraries, accommodation, or activities.'
+        question: 'Does the package include accommodation and food?',
+        answer: 'Our standard packages include premium accommodation and transportation. We can include meal plans (Breakfast/Dinner) upon request. We also provide curated lists of the best local restaurants for you to explore.'
     },
     {
-        question: 'What is your cancellation policy?',
-        answer: 'Cancellations made 30+ days before departure receive a full refund minus a small processing fee. Cancellations within 30 days are subject to varying fees depending on the package. Travel insurance is highly recommended.'
+        question: 'How does the driver and transportation service work?',
+        answer: 'We provide experienced, verified drivers who act as your local guide. You will have a private vehicle for the entire duration of your trip, ensuring comfort, safety, and flexibility to stop wherever you like.'
     },
     {
-        question: 'Do you offer travel insurance?',
-        answer: 'Yes, we partner with leading insurance providers to offer comprehensive coverage including trip cancellation, medical emergencies, and lost baggage protection.'
+        question: 'How do I confirm my booking?',
+        answer: 'You can start by filling out the form above or chatting with us on WhatsApp. Once we finalize your itinerary, a small advance payment confirms your booking, with the balance payable during the trip.'
     }
 ];
+
+import { allDestinations } from '@/data/destinations';
 
 export default function ContactSection() {
     const location = useLocation();
@@ -56,6 +58,7 @@ export default function ContactSection() {
         firstName: '',
         lastName: '',
         destination: '',
+        customDestination: '',
         date: undefined as DateRange | undefined,
         message: ''
     });
@@ -81,6 +84,11 @@ export default function ContactSection() {
             return;
         }
 
+        if (formData.destination === 'Other' && !formData.customDestination) {
+            alert('Please specify your desired destination');
+            return;
+        }
+
         // Construct WhatsApp message
         let dateString = '';
         if (formData.date?.from) {
@@ -90,13 +98,16 @@ export default function ContactSection() {
             }
         }
 
-        const message = `Hi, I'm ${formData.firstName} ${formData.lastName}. I'm interested in traveling to ${formData.destination} from ${dateString}.${formData.message ? ` Additional details: ${formData.message}` : ''}`;
+        const finalDestination = formData.destination === 'Other' ? formData.customDestination : formData.destination;
+        const message = `Hi, I'm ${formData.firstName} ${formData.lastName}. I'm interested in traveling to ${finalDestination} from ${dateString}.${formData.message ? ` Additional details: ${formData.message}` : ''}`;
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/919633403404?text=${encodedMessage}`;
 
         // Redirect to WhatsApp
         window.open(whatsappUrl, '_blank');
     };
+
+    const sortedDestinations = [...allDestinations].sort((a, b) => a.title.localeCompare(b.title));
 
     return (
         <section id="contact" className="py-12 lg:py-20 bg-white relative overflow-hidden">
@@ -202,21 +213,29 @@ export default function ContactSection() {
                                                 <SelectTrigger className="w-full h-14 pl-12 bg-gray-50 border-gray-200 text-text-main focus:ring-primary rounded-xl" aria-label="Select Destination">
                                                     <SelectValue placeholder="Select Destination" />
                                                 </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Ooty">Ooty</SelectItem>
-                                                    <SelectItem value="Munnar">Munnar</SelectItem>
-                                                    <SelectItem value="Kodaikanal">Kodaikanal</SelectItem>
-                                                    <SelectItem value="Rameswaram">Rameswaram</SelectItem>
-                                                    <SelectItem value="Hampi">Hampi</SelectItem>
-                                                    <SelectItem value="Madurai">Madurai</SelectItem>
-                                                    <SelectItem value="Coorg (Kodagu)">Coorg (Kodagu)</SelectItem>
-                                                    <SelectItem value="Kanyakumari">Kanyakumari</SelectItem>
-                                                    <SelectItem value="Mysuru (Mysore)">Mysuru (Mysore)</SelectItem>
-                                                    <SelectItem value="Alleppey (Alappuzha)">Alleppey (Alappuzha)</SelectItem>
-                                                    <SelectItem value="Thiruvananthapuram">Thiruvananthapuram</SelectItem>
+                                                <SelectContent className="max-h-[300px]">
+                                                    {sortedDestinations.map((dest) => (
+                                                        <SelectItem key={dest.id} value={dest.title}>
+                                                            {dest.title}
+                                                        </SelectItem>
+                                                    ))}
+                                                    <SelectItem value="Other">Other (Specify)</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                        {formData.destination === 'Other' && (
+                                            <div className="relative group mt-2 animate-in fade-in slide-in-from-top-1">
+                                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Enter your destination"
+                                                    value={formData.customDestination}
+                                                    onChange={(e) => setFormData({ ...formData, customDestination: e.target.value })}
+                                                    className="pl-12 h-14 bg-gray-50 border-gray-200 text-text-main placeholder:text-gray-400 focus-visible:ring-primary rounded-xl"
+                                                    required
+                                                />
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="space-y-2">

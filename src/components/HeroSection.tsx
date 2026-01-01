@@ -61,7 +61,7 @@ export default function HeroSection() {
   const totalItems = extendedDestinations.length;
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center">
+    <section id="home" className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center">
       {/* Background Image with Gradient Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center animate-fade-in-up"

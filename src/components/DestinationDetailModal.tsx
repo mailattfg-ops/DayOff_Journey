@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, CheckCircle2, MapPin } from "lucide-react";
+import { Calendar, CheckCircle2, MapPin, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export interface Destination {
@@ -32,6 +32,14 @@ export function DestinationDetailModal({ isOpen, onClose, destination, onBookNow
             <DialogContent className="max-w-4xl h-[90vh] p-0 overflow-hidden flex flex-col bg-white dark:bg-zinc-900 border-none">
                 <ScrollArea className="flex-grow">
                     <div className="relative h-64 md:h-80 w-full">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-4 right-4 z-10 rounded-full bg-black/20 hover:bg-white hover:text-black text-white backdrop-blur-md transition-all h-10 w-10"
+                            onClick={onClose}
+                        >
+                            <X className="w-5 h-5" />
+                        </Button>
                         <img
                             src={destination.image}
                             alt={destination.title}

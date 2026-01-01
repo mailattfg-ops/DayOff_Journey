@@ -1,7 +1,16 @@
 import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollToSection = (id: string) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: id } });
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
