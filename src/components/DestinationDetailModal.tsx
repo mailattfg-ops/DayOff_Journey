@@ -15,6 +15,7 @@ export interface Destination {
     gallery?: string[];
     highlights?: string[];
     bestTime?: string;
+    tagline?: string;
 }
 
 interface DestinationDetailModalProps {

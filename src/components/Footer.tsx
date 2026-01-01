@@ -47,32 +47,30 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-white/10">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Identity */}
-          <div className="lg:col-span-2">
-            <button onClick={() => scrollToSection('home')} className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <span className="text-2xl font-bold text-text-main dark:text-white">Dayoff Journeys</span>
-            </button>
-            <p className="text-text-muted dark:text-gray-400 mb-6 max-w-sm">
-              Crafting unforgettable journeys since 2020. Your trusted partner for authentic travel experiences around the globe.
-            </p>
+          <div className="flex flex-col">
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Reach Us</h3>
 
             {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
-                <Mail className="w-5 h-5 text-primary" />
-                <span>dayoffjourneys@gmail.com</span>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+                <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <span className="text-base">dayoffjourneys@gmail.com</span>
               </div>
-              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400">
-                <Phone className="w-5 h-5 text-primary" />
-                <span>+91 9633403404</span>
+              <div className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+                <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <span className="text-base">+91 9633403404</span>
               </div>
-              <div className="flex items-start gap-3 text-text-muted dark:text-gray-400">
-                <MapPin className="w-5 h-5 text-primary mt-1" />
-                <span>
+              <div className="flex items-start gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+                <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all mt-1">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <span className="text-base leading-relaxed">
                   East villoor, Indianoor (P.O)<br />
                   Kottakkal, Malappuram<br />
                   676503
@@ -83,13 +81,13 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Company</h3>
+            <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <button
                     onClick={link.action}
-                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
+                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left text-base"
                   >
                     {link.name}
                   </button>
@@ -100,13 +98,13 @@ export default function Footer() {
 
           {/* Destinations Links */}
           <div>
-            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Destinations</h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Destinations</h3>
+            <ul className="space-y-4">
               {footerLinks.destinations.map((link) => (
                 <li key={link.name}>
                   <button
                     onClick={link.action}
-                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
+                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left text-base"
                   >
                     {link.name}
                   </button>
@@ -115,21 +113,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links */}
-          <div>
-            <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Support</h3>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <button
-                    onClick={link.action}
-                    className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left"
-                  >
-                    {link.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
+          {/* Support Links & Logo */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Support</h3>
+              <ul className="space-y-4 mb-8">
+                {footerLinks.support.map((link) => (
+                  <li key={link.name}>
+                    <button
+                      onClick={link.action}
+                      className="text-text-muted dark:text-gray-400 hover:text-primary transition-colors text-left text-base"
+                    >
+                      {link.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <button onClick={() => scrollToSection('home')} className="block transition-transform hover:scale-105 mt-auto">
+              {/* Light Mode Logo (Green) */}
+              <img
+                src="/images/green-logo.svg"
+                alt="Dayoff Journeys"
+                className="h-64 w-auto dark:hidden -ml-4"
+              />
+              {/* Dark Mode Logo (Yellow) */}
+              <img
+                src="/images/yellow-logo.svg"
+                alt="Dayoff Journeys"
+                className="h-64 w-auto hidden dark:block -ml-4"
+              />
+            </button>
           </div>
         </div>
 

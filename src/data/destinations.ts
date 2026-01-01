@@ -81,7 +81,8 @@ export const allDestinations: Destination[] = [
         image: '/images/alleppey.webp',
         tags: ['Backwaters', 'Houseboat', 'Relaxation'],
         highlights: ['Backwater Cruise', 'Alappuzha Beach', 'Marari Beach'],
-        bestTime: 'November to February'
+        bestTime: 'November to February',
+        tagline: 'Venice of the East'
     },
     {
         id: 'edathua',
@@ -133,7 +134,8 @@ export const allDestinations: Destination[] = [
         image: '/images/kochi.webp',
         tags: ['Heritage', 'Coastal', 'Culture'],
         highlights: ['Fort Kochi', 'Chinese Fishing Nets', 'Mattancherry Palace', 'Jew Town'],
-        bestTime: 'October to March'
+        bestTime: 'October to March',
+        tagline: 'Queen of Arabian Sea'
     },
     {
         id: 'malayattoor',
@@ -160,7 +162,8 @@ export const allDestinations: Destination[] = [
             '/images/Eravikulam National Park.webp',
             '/images/Mattupetty Dam.webp',
             '/images/Waterfalls.webp'
-        ]
+        ],
+        tagline: 'Tea Garden Paradise'
     },
     {
         id: 'koratty',
@@ -213,7 +216,8 @@ export const allDestinations: Destination[] = [
         tags: ['Hills', 'Lake', 'Forest'],
         highlights: ['Kodaikanal Lake', 'Coaker\'s Walk', 'Pine Forest', 'Pillar Rocks'],
         bestTime: 'September to May',
-        gallery: ['/images/Kodaikanal Lake.webp', '/images/Pine Forest.webp', '/images/Coaker’s Walk.webp']
+        gallery: ['/images/Kodaikanal Lake.webp', '/images/Pine Forest.webp', '/images/Coaker’s Walk.webp'],
+        tagline: 'Princess of Hill Stations'
     },
     {
         id: 'muthupet',
@@ -260,7 +264,8 @@ export const allDestinations: Destination[] = [
             '/images/Ooty-Botanical_Gardens.webp',
             '/images/Ooty-Doddabeta.webp',
             '/images/Ooty-Tea.webp'
-        ]
+        ],
+        tagline: 'Queen of Hill Stations'
     },
     {
         id: 'st-thomas-mount',
@@ -312,7 +317,33 @@ export const allDestinations: Destination[] = [
         image: '/images/mysore.webp',
         tags: ['Palace', 'Royalty', 'History'],
         highlights: ['Mysore Palace', 'Chamundi Hill', 'Brindavan Gardens'],
-        bestTime: 'Throughout the year'
+        bestTime: 'Throughout the year',
+        tagline: 'City of Palaces'
+    },
+    {
+        id: 'hampi',
+        title: 'Hampi',
+        location: 'Karnataka',
+        description: 'A UNESCO World Heritage Site featuring ruins of the ancient Vijayanagara Empire.',
+        image: '/images/hampi.webp',
+        tags: ['Heritage', 'Ruins', 'Architecture'],
+        highlights: ['Virupaksha Temple', 'Stone Chariot', 'Vittala Temple'],
+        bestTime: 'October to March'
+    },
+    {
+        id: 'kodungallur',
+        title: 'Kodungallur',
+        location: 'Kerala',
+        description: 'A historic port city known for its ancient temples, mosques, and churches.',
+        image: '/images/Kodungallur_11zon.webp',
+        tags: ['History', 'Pilgrimage', 'Heritage'],
+        highlights: ['Cheraman Juma Masjid', 'Kodungallur Bhagavathy Temple', 'Muziris Heritage'],
+        bestTime: 'Throughout the year',
+        gallery: [
+            '/images/cheraman-juma-masjid.webp',
+            '/images/Kodungallur_11zon.webp'
+        ],
+        tagline: 'Historic Port City'
     },
 
     // --- Andhra, Goa, Maharashtra, Telangana ---

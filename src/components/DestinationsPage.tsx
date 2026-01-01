@@ -34,7 +34,7 @@ export default function DestinationsPage() {
         }, 100);
     };
 
-    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'mysuru', 'alleppey', 'kochi'].includes(d.id));
+    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi'].includes(d.id));
 
     // Explicit IDs from user request - Updated
     const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
@@ -104,11 +104,10 @@ export default function DestinationsPage() {
                     <img
                         src="/images/explore_destination.webp"
                         alt="Explore Destinations Background"
-                        className="w-full h-full object-cover animate-fade-in-up"
-                        // @ts-ignore
+                        className="w-full h-full object-cover"
                         fetchPriority="high"
                         loading="eager"
-                        decoding="async"
+                        decoding="sync"
                     />
                     <div className="absolute inset-0 bg-black/40" />
                 </div>

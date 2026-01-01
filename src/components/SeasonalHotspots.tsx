@@ -4,96 +4,85 @@ import { Sun, ArrowLeft, MapPin, Calendar } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
-// Data Configuration
-const destinations = [
-    {
-        id: 'ooty',
-        title: 'Ooty',
-        description: 'Immerse yourself in the colonial charm and rolling tea gardens of the Queen of Hills.',
-        image: '/images/Ooty_Card.webp',
-        tags: ['Nature', 'Tea', 'Boating'],
-        gallery: [
-            {
-                name: 'Ooty Lake',
-                image: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&q=80',
-                description: 'A picturesque artificial lake perfect for boating and evening relaxation.'
-            },
-            {
-                name: 'Botanical Garden',
-                image: 'https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800&q=80',
-                description: 'Sprawling gardens showcasing exotic flora, ferns, and orchids.'
-            },
-            {
-                name: 'Tea Plantations',
-                image: '/images/Ooty-Tea.webp',
-                description: 'Experience the aroma and greenery of world-class tea estates.'
-            },
-            {
-                name: 'Doddabetta Peak',
-                image: '/images/Ooty-Doddabeta.webp',
-                description: 'The highest peak in the Nilgiris offering breathtaking panoramic views.'
-            }
-        ]
-    },
-    {
-        id: 'kodaikanal',
-        title: 'Kodaikanal',
-        description: 'Explore the misty cliffs, pine forests, and star-shaped lake of the Princess of Hill Stations.',
-        image: '/images/Kodaikanal_Card.webp',
-        tags: ['Lake', 'Trekking', 'Mist'],
-        gallery: [
-            {
-                name: 'Coaker’s Walk',
-                image: '/images/Coaker’s Walk.webp',
-                description: 'A scenic pedestrian path offering mesmerizing views of the valley.'
-            },
-            {
-                name: 'Kodaikanal Lake',
-                image: '/images/Kodaikanal Lake.webp',
-                description: 'The iconic star-shaped lake, the soul of Kodaikanal tourism.'
-            },
-            {
-                name: 'Pine Forest',
-                image: '/images/Pine Forest.webp',
-                description: 'Dense, misty pine woods perfect for photography and nature walks.'
-            },
-            {
-                name: 'Pillar Rocks',
-                image: '/images/Pillar_Rocks.webp',
-                description: 'Giant granite pillars standing tall amidst encircling clouds.'
-            }
-        ]
-    },
-    {
-        id: 'munnar',
-        title: 'Munnar',
-        description: 'Wander through endless tea plantations and cascading waterfalls in God\'s Own Country.',
-        image: '/images/Munnar_Card.webp',
-        tags: ['Tea', 'Hills', 'Wildlife'],
-        gallery: [
-            {
-                name: 'Tea Gardens',
-                image: '/images/Tea Gardens.webp',
-                description: 'Rolling carpets of emerald green tea bushes stretching to the horizon.'
-            },
-            {
-                name: 'Eravikulam National Park',
-                image: '/images/Eravikulam National Park.webp',
-                description: 'Home to the endangered Nilgiri Tahr and blooming Neelakurinji flowers.'
-            },
-            {
-                name: 'Mattupetty Dam',
-                image: '/images/Mattupetty Dam.webp',
-                description: 'A serene dam spot famous for boating and elephant sightings.'
-            },
-            {
-                name: 'Waterfalls',
-                image: '/images/Waterfalls.webp',
-                description: 'Majestic waterfalls like Cheeyappara cascading down rocky terrain.'
-            }
-        ]
-    }
-];
+import { allDestinations } from '@/data/destinations';
+
+// Rich gallery data specific to this component
+const richGalleryData: Record<string, { name: string; image: string; description: string }[]> = {
+    ooty: [
+        {
+            name: 'Ooty Lake',
+            image: '/images/Ooty-lake.webp',
+            description: 'A picturesque artificial lake perfect for boating and evening relaxation.'
+        },
+        {
+            name: 'Botanical Garden',
+            image: '/images/Ooty-Botanical_Gardens.webp',
+            description: 'Sprawling gardens showcasing exotic flora, ferns, and orchids.'
+        },
+        {
+            name: 'Tea Plantations',
+            image: '/images/Ooty-Tea.webp',
+            description: 'Experience the aroma and greenery of world-class tea estates.'
+        },
+        {
+            name: 'Doddabetta Peak',
+            image: '/images/Ooty-Doddabeta.webp',
+            description: 'The highest peak in the Nilgiris offering breathtaking panoramic views.'
+        }
+    ],
+    kodaikanal: [
+        {
+            name: 'Coaker’s Walk',
+            image: '/images/Coaker’s Walk.webp',
+            description: 'A scenic pedestrian path offering mesmerizing views of the valley.'
+        },
+        {
+            name: 'Kodaikanal Lake',
+            image: '/images/Kodaikanal Lake.webp',
+            description: 'The iconic star-shaped lake, the soul of Kodaikanal tourism.'
+        },
+        {
+            name: 'Pine Forest',
+            image: '/images/Pine Forest.webp',
+            description: 'Dense, misty pine woods perfect for photography and nature walks.'
+        },
+        {
+            name: 'Pillar Rocks',
+            image: '/images/Pillar_Rocks.webp',
+            description: 'Giant granite pillars standing tall amidst encircling clouds.'
+        }
+    ],
+    munnar: [
+        {
+            name: 'Tea Gardens',
+            image: '/images/Tea Gardens.webp',
+            description: 'Rolling carpets of emerald green tea bushes stretching to the horizon.'
+        },
+        {
+            name: 'Eravikulam National Park',
+            image: '/images/Eravikulam National Park.webp',
+            description: 'Home to the endangered Nilgiri Tahr and blooming Neelakurinji flowers.'
+        },
+        {
+            name: 'Mattupetty Dam',
+            image: '/images/Mattupetty Dam.webp',
+            description: 'A serene dam spot famous for boating and elephant sightings.'
+        },
+        {
+            name: 'Waterfalls',
+            image: '/images/Waterfalls.webp',
+            description: 'Majestic waterfalls like Cheeyappara cascading down rocky terrain.'
+        }
+    ]
+};
+
+const destinations = allDestinations
+    .filter(d => ['ooty', 'kodaikanal', 'munnar'].includes(d.id))
+    .map(dest => ({
+        ...dest,
+        // Override gallery with rich local data
+        gallery: richGalleryData[dest.id] || []
+    }));
 
 export default function SeasonalHotspots() {
     const navigate = useNavigate();

@@ -15,11 +15,20 @@ export default function Navigation() {
           {/* Left Side: Logo & Navigation */}
           <div className="flex items-center gap-12">
             {/* Logo */}
+            {/* Logo */}
             <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center space-x-2 transition-transform hover:scale-105 cursor-pointer">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <span className="text-xl font-bold text-text-main dark:text-white">Dayoff Journeys</span>
+              {/* Light Mode Logo (Green) */}
+              <img
+                src="/images/green-logo.svg"
+                alt="Dayoff Journeys"
+                className="h-14 w-auto dark:hidden"
+              />
+              {/* Dark Mode Logo (Yellow) */}
+              <img
+                src="/images/yellow-logo.svg"
+                alt="Dayoff Journeys"
+                className="h-14 w-auto hidden dark:block"
+              />
             </div>
 
             {/* Desktop Navigation */}

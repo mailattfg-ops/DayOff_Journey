@@ -306,7 +306,7 @@ export default function ContactSection() {
             </div>
 
             {/* FAQ Section */}
-            <div className="py-20 lg:py-24 bg-white border-t border-gray-100 w-full">
+            <div className="pt-20 lg:pt-24 pb-0 bg-white border-t border-gray-100 w-full">
                 <div className="max-w-4xl mx-auto px-6 lg:px-20">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl lg:text-5xl font-bold text-text-main mb-4">

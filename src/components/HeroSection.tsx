@@ -1,6 +1,7 @@
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
+import { allDestinations } from '@/data/destinations';
 
 export default function HeroSection() {
   const scrollToContact = () => {
@@ -10,38 +11,17 @@ export default function HeroSection() {
     }
   };
 
-  const destinations = [
-    {
-      name: "Munnar",
-      image: "/images/munnar.webp",
-      desc: "Tea Garden Paradise"
-    },
-    {
-      name: "Ooty",
-      image: "/images/Ooty.webp",
-      desc: "Queen of Hill Stations"
-    },
-    {
-      name: "Kodaikanal",
-      image: "/images/kodaikanal.webp",
-      desc: "Princess of Hill Stations"
-    },
-    {
-      name: "Mysuru",
-      image: "/images/mysore.webp",
-      desc: "City of Palaces"
-    },
-    {
-      name: "Alappuzha",
-      image: "/images/alleppey.webp",
-      desc: "Venice of the East"
-    },
-    {
-      name: "Kochi",
-      image: "/images/kochi.webp",
-      desc: "Queen of Arabian Sea"
-    }
-  ];
+
+
+  const heroDestinationIds = ['munnar', 'ooty', 'kodaikanal', 'mysuru', 'alleppey', 'kochi', 'kodungallur'];
+  const destinations = heroDestinationIds.map(id => {
+    const dest = allDestinations.find(d => d.id === id);
+    return {
+      name: dest?.title || '',
+      image: dest?.image || '',
+      desc: dest?.tagline || ''
+    };
+  }).filter(d => d.name);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
