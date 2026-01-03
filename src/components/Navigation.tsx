@@ -12,24 +12,10 @@ export default function Navigation() {
     setMobileMenuOpen(false);
 
     if (location.pathname === '/') {
-      const start = Date.now();
-      const scrollWithRetry = () => {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const isVisible = Math.abs(rect.top - 80) < 50;
-
-          if (!isVisible) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-
-        // Continue checking for 2.5 seconds
-        if (Date.now() - start < 2500) {
-          requestAnimationFrame(() => setTimeout(scrollWithRetry, 500));
-        }
-      };
-      scrollWithRetry();
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
       navigate('/', { state: { scrollTo: id } });
     }

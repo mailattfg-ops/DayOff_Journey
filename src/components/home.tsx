@@ -24,40 +24,41 @@ function Home() {
       const scrollToElement = () => {
         const element = document.getElementById(elementId);
         if (element) {
-          // Check if element is already roughly in view (within 50px) to avoid unnecessary scrolling
           const rect = element.getBoundingClientRect();
-          const isInView = Math.abs(rect.top - 80) < 50; // 80px offset for sticky header
+          // We expect the element to be at top + header height (approx 80px)
+          const isCorrectlyPositioned = Math.abs(rect.top - 80) < 20;
 
-          if (!isInView) {
+          if (!isCorrectlyPositioned) {
             element.scrollIntoView({ behavior: 'smooth' });
           }
-          return true;
-        }
-        return false;
-      };
-
-      // Robust "Seek and Scroll"
-      const start = Date.now();
-      const scrollWithRetry = () => {
-        const success = scrollToElement();
-
-        // Continue checking for 2.5 seconds to handle late layout shifts
-        if (Date.now() - start < 2500) {
-          // If successful, check less frequently, otherwise keep trying
-          requestAnimationFrame(() => setTimeout(scrollWithRetry, 500));
-        } else {
-          // Final cleanup
-          window.history.replaceState({}, '');
         }
       };
 
-      scrollWithRetry();
+      // Initial scroll
+      setTimeout(scrollToElement, 100);
+
+      // Check and correct for layout shifts (e.g. images loading)
+      // We check at increasing intervals to catch late loads without causing constant jitter
+      const timers = [
+        setTimeout(scrollToElement, 500),
+        setTimeout(scrollToElement, 1000),
+        setTimeout(scrollToElement, 2000)
+      ];
+
+      // Clean up local state after we're likely done
+      const cleanupTimer = setTimeout(() => {
+        window.history.replaceState({}, '');
+      }, 2500);
 
       return () => {
-        // Cleanup not strictly necessary for self-terminating loop but good practice
+        timers.forEach(clearTimeout);
+        clearTimeout(cleanupTimer);
       };
     } else {
-      window.scrollTo(0, 0);
+      // Only scroll to top if we are NOT redirecting to a specific section and no hash
+      if (!location.hash) {
+        window.scrollTo(0, 0);
+      }
     }
   }, [location]);
   return (
@@ -103,7 +104,7 @@ function Home() {
           <ServicesSection />
         </LazyLoadWhenVisible>
 
-        <LazyLoadWhenVisible minHeight="600px">
+        <LazyLoadWhenVisible minHeight="800px">
           <SeasonalHotspots />
         </LazyLoadWhenVisible>
 

@@ -8,14 +8,11 @@ export default function HeroSection() {
   const navigate = useNavigate();
 
   const handleBookNow = (title: string) => {
-    navigate('/', { state: { selectedDestination: title } });
-    setTimeout(() => {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    navigate('/', { state: { selectedDestination: title, scrollTo: 'contact' } });
   };
 
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    navigate('/', { state: { scrollTo: 'contact' } });
   };
 
 

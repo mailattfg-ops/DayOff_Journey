@@ -92,10 +92,7 @@ export default function SeasonalHotspots() {
 
     const handleBookNow = (title?: string) => {
         const target = title || activeData?.title || 'South India';
-        navigate('/', { state: { selectedDestination: target } });
-        setTimeout(() => {
-            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+        navigate('/', { state: { selectedDestination: target, scrollTo: 'contact' } });
     };
 
     return (

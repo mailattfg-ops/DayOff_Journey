@@ -84,13 +84,7 @@ export default function DestinationsPage() {
 
     const handleBookNow = (destinationName: string) => {
         setIsModalOpen(false);
-        navigate('/', { state: { selectedDestination: destinationName } });
-        setTimeout(() => {
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 100);
+        navigate('/', { state: { selectedDestination: destinationName, scrollTo: 'contact' } });
     };
 
     const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi'].includes(d.id));
@@ -329,13 +323,7 @@ export default function DestinationsPage() {
                                     <Button
                                         onClick={() => {
                                             const term = searchQuery || selectedRegion;
-                                            navigate('/', { state: { customDestination: term } });
-                                            setTimeout(() => {
-                                                const contactSection = document.getElementById('contact');
-                                                if (contactSection) {
-                                                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                                                }
-                                            }, 100);
+                                            navigate('/', { state: { customDestination: term, scrollTo: 'contact' } });
                                         }}
                                         size="lg"
                                         className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
