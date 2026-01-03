@@ -459,4 +459,36 @@ export const allDestinations: Destination[] = [
         highlights: ['Holy Cave', 'Bhairon Baba Temple', 'Ardhkuwari Cave'],
         bestTime: 'March to October'
     },
+
+    // --- East & North East India ---
+    {
+        id: 'sikkim',
+        title: 'Sikkim',
+        location: 'Sikkim',
+        description: 'A Himalayan wonderland known for its dramatic landscapes, monasteries, and stunning views of Kanchenjunga.',
+        image: '/images/sikkim.webp',
+        tags: ['Hills', 'Monastery', 'Nature'],
+        highlights: ['Gangtok', 'Nathula Pass', 'Tsomgo Lake', 'Rumtek Monastery'],
+        bestTime: 'March to June, October to December'
+    },
+    {
+        id: 'meghalaya',
+        title: 'Meghalaya',
+        location: 'Meghalaya',
+        description: 'The "Abode of Clouds", famous for its living root bridges, waterfalls, and rainiest places on Earth.',
+        image: '/images/Meghalaya.webp',
+        tags: ['Nature', 'Waterfalls', 'Adventure'],
+        highlights: ['Cherrapunji', 'Living Root Bridges', 'Mawlynnong', 'Dawki River'],
+        bestTime: 'October to April'
+    },
+    {
+        id: 'assam',
+        title: 'Assam',
+        location: 'Assam',
+        description: 'The gateway to Northeast India, known for its sprawling tea gardens, wildlife, and the mighty Brahmaputra river.',
+        image: '/images/assam_11zon.webp',
+        tags: ['Wildlife', 'Tea', 'River'],
+        highlights: ['Kaziranga National Park', 'Kamakhya Temple', 'Majuli Island'],
+        bestTime: 'November to April'
+    }
 ];

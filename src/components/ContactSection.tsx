@@ -1,5 +1,5 @@
-import { useState, FormEvent, useEffect } from 'react';
-import { Mail, Phone, MessageCircle, MapPin, User, Calendar as CalendarIcon } from 'lucide-react';
+import { useState, FormEvent, useEffect, lazy, Suspense } from 'react';
+import { Mail, Phone, MessageCircle, MapPin, User } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -9,12 +9,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Calendar } from '@/components/ui/calendar';
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from '@/components/ui/popover';
 import {
     Select,
     SelectContent,
@@ -23,9 +17,10 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
 import { DateRange } from 'react-day-picker';
 import { useLocation } from 'react-router-dom';
+
+const DatePickerWithRange = lazy(() => import('@/components/ui/date-picker-with-range'));
 
 const faqs = [
     {
@@ -118,7 +113,7 @@ export default function ContactSection() {
     const sortedDestinations = [...allDestinations].sort((a, b) => a.title.localeCompare(b.title));
 
     return (
-        <section id="contact" className="py-10 lg:py-14 bg-white relative overflow-hidden scroll-mt-28">
+        <section className="py-10 lg:py-14 bg-white relative overflow-hidden">
             {/* Abstract Background Shapes - Subtle for White Theme */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50"></div>
@@ -227,7 +222,11 @@ export default function ContactSection() {
                                                             {dest.title}
                                                         </SelectItem>
                                                     ))}
-                                                    <SelectItem value="Other">Other (Specify)</SelectItem>
+                                                    <SelectItem value="Kanyakumari">Kanyakumari</SelectItem>
+                                                    <SelectItem value="Assam">Assam</SelectItem>
+                                                    <SelectItem value="Meghalaya">Meghalaya</SelectItem>
+                                                    <SelectItem value="Sikkim">Sikkim</SelectItem>
+                                                    <SelectItem value="Other">Other</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -248,45 +247,12 @@ export default function ContactSection() {
 
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-text-main ml-1">Travel Dates</label>
-                                        <Popover>
-                                            <PopoverTrigger asChild>
-                                                <Button
-                                                    variant={"outline"}
-                                                    className={cn(
-                                                        "w-full h-14 pl-12 justify-start text-left font-normal bg-gray-50 border-gray-200 hover:bg-white hover:text-text-main relative rounded-xl",
-                                                        !formData.date && "text-muted-foreground"
-                                                    )}
-                                                    aria-label="Select Travel Dates"
-                                                >
-                                                    <CalendarIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
-                                                    {formData.date?.from ? (
-                                                        formData.date.to ? (
-                                                            <>
-                                                                {format(formData.date.from, "LLL dd, y")} -{" "}
-                                                                {format(formData.date.to, "LLL dd, y")}
-                                                            </>
-                                                        ) : (
-                                                            format(formData.date.from, "LLL dd, y")
-                                                        )
-                                                    ) : (
-                                                        <span>Pick a date range</span>
-                                                    )}
-                                                </Button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-auto p-0" align="start">
-                                                <Calendar
-                                                    initialFocus
-                                                    mode="range"
-                                                    defaultMonth={formData.date?.from}
-                                                    selected={formData.date}
-                                                    onSelect={(date) => setFormData({ ...formData, date })}
-                                                    numberOfMonths={1}
-                                                    disabled={(date) =>
-                                                        date < new Date(new Date().setHours(0, 0, 0, 0))
-                                                    }
-                                                />
-                                            </PopoverContent>
-                                        </Popover>
+                                        <Suspense fallback={<div className="w-full h-14 bg-gray-50 animate-pulse rounded-xl" />}>
+                                            <DatePickerWithRange
+                                                date={formData.date}
+                                                setDate={(date) => setFormData({ ...formData, date })}
+                                            />
+                                        </Suspense>
                                     </div>
                                 </div>
 

@@ -137,6 +137,10 @@ export default function SeasonalHotspots() {
                                             src={hotspot.image}
                                             alt={hotspot.title}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            loading="lazy"
+                                            decoding="async"
+                                            width="400"
+                                            height="320"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
@@ -185,6 +189,10 @@ export default function SeasonalHotspots() {
                                                 src={item.image}
                                                 alt={item.name}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                loading="lazy"
+                                                decoding="async"
+                                                width="400"
+                                                height="320"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                             <div className="absolute bottom-3 left-4 right-4">

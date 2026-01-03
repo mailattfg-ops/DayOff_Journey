@@ -1,4 +1,4 @@
-import { Map, Users, Plane, Briefcase, Car, Shield, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Map, Users, Plane, Briefcase, Car, Shield, Camera, ChevronLeft, ChevronRight, Heart, MapPin, Hotel } from 'lucide-react';
 import { useState } from 'react';
 
 const coreServices = [
@@ -9,37 +9,35 @@ const coreServices = [
         description: "Tailor-made itineraries crafted around individual preferences, travel interests, and budgets, ensuring a unique and memorable experience. This is perfect for family vacations, friends’ trips and special occasions."
     },
     {
-        icon: Users,
-        title: "Group Tour Packages",
-        description: "Carefully designed packages for corporate outings, student excursions, or large family gatherings. We handle all logistics, accommodation, and sightseeing for a hassle-free group experience."
+        icon: Camera,
+        title: "Tour Packages",
+        description: "Carefully curated tour packages covering hill stations, weekend getaways, leisure tours, and group travel. We combine reliable transportation with thoughtfully selected accommodations for a stress-free travel experience."
+    },
+    {
+        icon: Heart,
+        title: "Family Tours",
+        description: "Thoughtfully designed family-friendly tour packages focused on comfort, safety, and enjoyable experiences for all age groups."
+    },
+    {
+        icon: Briefcase,
+        title: "Corporate & Group Tours",
+        description: "Customized travel arrangements for group tours, office trips, conferences and corporate outings with seamless coordination."
     },
     {
         icon: Plane,
         title: "Airport Transfers",
-        subtitle: "(Pick-up & Drop-off)",
-        description: "Punctual and comfortable transfers to and from airports. Whether you're arriving or departing, our chauffeurs ensure you reach your destination on time and stress-free."
+        description: "Hassle-free airport pickup and drop services with punctual, safe, and comfortable transportation."
     },
     {
-        icon: Briefcase,
-        title: "Corporate Travel Management",
-        description: "Efficient travel solutions for businesses including executive car rentals, hotel bookings, and event transportation management, ensuring professionalism and punctuality."
-    },
-    {
-        icon: Car,
-        title: "Vehicle Rentals",
-        subtitle: "(with Chauffeur)",
-        description: "A wide range of well-maintained sedans, SUVs, and luxury coaches available for daily rentals or long-distance trips. Our experienced drivers prioritize your safety and comfort."
-    },
-    {
-        icon: Shield,
-        title: "Pilgrimage Tours",
-        description: "Specialized packages for religious tours to Sabarimala, Guruvayur, Velankanni, and other major pilgrim centers in South India, with attention to specific requirements and timings."
+        icon: Hotel,
+        title: "Resort & Hotel Booking",
+        description: "Assistance in booking quality hotels and resorts at trusted destinations, ensuring comfort, safety, and value for money."
     }
 ];
 
 export default function CoreServices() {
     return (
-        <section id="services" className="py-10 lg:py-14 bg-white dark:bg-background-dark/50 scroll-mt-28">
+        <section className="pt-12 lg:pt-12 pb-10 lg:pb-14 bg-white dark:bg-background-dark/50">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-20 w-full">
                 {/* Intro */}
                 <div className="text-center mb-16">
@@ -117,20 +115,35 @@ export default function CoreServices() {
 function UrbaniaShowcase() {
     const [activeView, setActiveView] = useState<'exterior' | 'interior'>('exterior');
     const [interiorIndex, setInteriorIndex] = useState(0);
+    const [exteriorIndex, setExteriorIndex] = useState(0);
 
     const interiorImages = [
         '/images/urbania_interior_11zon.webp',
-        '/images/urbania-interiro-2_11zon.webp'
+        '/images/urbania-interiro-2_11zon.webp',
+        '/images/urbania-interior-3_11zon.webp'
     ];
 
-    const nextInterior = (e: React.MouseEvent) => {
+    const exteriorImages = [
+        '/images/urbania_exterior.webp',
+        '/images/urbania_11zon.webp'
+    ];
+
+    const nextImage = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setInteriorIndex((prev) => (prev + 1) % interiorImages.length);
+        if (activeView === 'interior') {
+            setInteriorIndex((prev) => (prev + 1) % interiorImages.length);
+        } else {
+            setExteriorIndex((prev) => (prev + 1) % exteriorImages.length);
+        }
     };
 
-    const prevInterior = (e: React.MouseEvent) => {
+    const prevImage = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setInteriorIndex((prev) => (prev - 1 + interiorImages.length) % interiorImages.length);
+        if (activeView === 'interior') {
+            setInteriorIndex((prev) => (prev - 1 + interiorImages.length) % interiorImages.length);
+        } else {
+            setExteriorIndex((prev) => (prev - 1 + exteriorImages.length) % exteriorImages.length);
+        }
     };
 
     return (
@@ -142,9 +155,9 @@ function UrbaniaShowcase() {
                     onClick={() => setActiveView(activeView === 'exterior' ? 'interior' : 'exterior')}
                 >
                     <img
-                        src={activeView === 'exterior' ? "/images/urbania_11zon.webp" : interiorImages[interiorIndex]}
+                        src={activeView === 'exterior' ? exteriorImages[exteriorIndex] : interiorImages[interiorIndex]}
                         alt="Force Urbania"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${activeView === 'exterior' ? 'object-bottom' : 'object-center'}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
 
@@ -155,16 +168,14 @@ function UrbaniaShowcase() {
                             {activeView === 'exterior' ? 'View Interior' : 'View Exterior'}
                         </span>
 
-                        {activeView === 'interior' && (
-                            <div className="flex gap-2">
-                                <button onClick={prevInterior} className="p-1.5 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
-                                    <ChevronLeft className="w-4 h-4" />
-                                </button>
-                                <button onClick={nextInterior} className="p-1.5 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
-                                    <ChevronRight className="w-4 h-4" />
-                                </button>
-                            </div>
-                        )}
+                        <div className="flex gap-2">
+                            <button onClick={prevImage} className="p-1.5 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
+                                <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button onClick={nextImage} className="p-1.5 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+                        </div>
                     </div>
                 </div>
 

@@ -20,7 +20,7 @@ export default function HeroSection() {
 
 
 
-  const heroDestinationIds = ['munnar', 'ooty', 'kodaikanal', 'mysuru', 'alleppey', 'kochi', 'kodungallur'];
+  const heroDestinationIds = ['ooty', 'kodaikanal', 'munnar', 'sabarimala', 'ervadi', 'kashi'];
   const destinations = heroDestinationIds.map(id => {
     const dest = allDestinations.find(d => d.id === id);
     return {
@@ -50,12 +50,17 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center">
       {/* Background Image with Gradient Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center animate-fade-in-up"
-        style={{
-          backgroundImage: "url('/images/hero-bg.webp')"
-        }}
-      >
+      {/* Background Image with Gradient Overlay */}
+      <div className="absolute inset-0">
+        <img
+          src="/images/hero-bg.webp"
+          alt="Beautiful travel destination in South India"
+          className="w-full h-full object-cover"
+          fetchPriority="high"
+          loading="eager"
+          width={1920}
+          height={1080}
+        />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
