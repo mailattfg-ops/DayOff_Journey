@@ -99,7 +99,7 @@ export default function SeasonalHotspots() {
     };
 
     return (
-        <section className="pt-12 pb-6 lg:pt-20 lg:pb-10 bg-white dark:bg-background-dark/50" id="south-india-paradise">
+        <section className="py-10 lg:py-14 bg-white dark:bg-background-dark/50" id="south-india-paradise">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
 
                 {/* Section Header */}

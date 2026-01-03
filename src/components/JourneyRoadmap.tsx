@@ -35,7 +35,7 @@ const steps = [
 
 export default function JourneyRoadmap() {
     return (
-        <section className="py-12 lg:py-20 bg-white dark:bg-background">
+        <section className="py-10 lg:py-14 bg-white dark:bg-background">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                 {/* Section Header */}
                 <div className="text-center mb-12">

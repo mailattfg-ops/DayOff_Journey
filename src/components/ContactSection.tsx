@@ -118,7 +118,7 @@ export default function ContactSection() {
     const sortedDestinations = [...allDestinations].sort((a, b) => a.title.localeCompare(b.title));
 
     return (
-        <section id="contact" className="py-12 lg:py-20 bg-white relative overflow-hidden">
+        <section id="contact" className="py-10 lg:py-14 bg-white relative overflow-hidden scroll-mt-28">
             {/* Abstract Background Shapes - Subtle for White Theme */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50"></div>
@@ -155,13 +155,13 @@ export default function ContactSection() {
                                 </div>
                             </a>
 
-                            <a href="mailto:dayoffjourneys@gmail.com" className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
+                            <a href="mailto:info@dayoffjourneys.com" className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
                                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors">
                                     <Mail className="w-6 h-6 text-primary group-hover:text-white" />
                                 </div>
                                 <div>
                                     <p className="text-sm text-text-muted">Send an Email</p>
-                                    <p className="text-xl font-bold text-text-main">dayoffjourneys@gmail.com</p>
+                                    <p className="text-xl font-bold text-text-main">info@dayoffjourneys.com</p>
                                 </div>
                             </a>
                         </div>

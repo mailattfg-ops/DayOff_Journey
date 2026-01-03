@@ -1,20 +1,20 @@
-import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Mail, Phone, MapPin, Facebook } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const scrollToSection = (id: string) => {
-    if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: id } });
+  const scrollToSection = (id: string, path: string = '/') => {
+    if (location.pathname !== path) {
+      navigate(path, { state: { scrollTo: id } });
       return;
     }
 
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-    } else if (id === 'home') {
+    } else if (id === 'home' && path === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -22,13 +22,13 @@ export default function Footer() {
   const footerLinks = {
     company: [
       { name: 'Home', action: () => scrollToSection('home') },
-      { name: 'About Us', action: () => scrollToSection('about') },
+      { name: 'About Us', action: () => navigate('/about') },
       { name: 'Services', action: () => scrollToSection('services') },
     ],
     destinations: [
-      { name: 'Ooty', action: () => scrollToSection('south-india-paradise') },
-      { name: 'Munnar', action: () => scrollToSection('south-india-paradise') },
-      { name: 'Kodaikanal', action: () => scrollToSection('south-india-paradise') },
+      { name: 'Trending Now', action: () => scrollToSection('trending-now', '/destinations') },
+      { name: 'Spiritual Journeys', action: () => scrollToSection('spiritual-journeys', '/destinations') },
+      { name: 'Explore All', action: () => scrollToSection('all-destinations', '/destinations') },
     ],
     support: [
       { name: 'Contact Us', action: () => scrollToSection('contact') },
@@ -47,18 +47,18 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-white/10">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16">
+
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Brand Identity */}
+          {/* Reach Us */}
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Reach Us</h3>
-
-            {/* Contact Info */}
             <div className="space-y-4">
-              <a href="mailto:dayoffjourneys@gmail.com" className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
+              <a href="mailto:info@dayoffjourneys.com" className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="text-base">dayoffjourneys@gmail.com</span>
+                <span className="text-base">info@dayoffjourneys.com</span>
               </a>
               <a href="tel:+919633403404" className="flex items-center gap-3 text-text-muted dark:text-gray-400 group cursor-pointer hover:text-primary transition-colors">
                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-white transition-all">
@@ -118,8 +118,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links & Logo */}
-          <div className="flex flex-col justify-between">
+          {/* Support Links */}
+          <div className="flex flex-col justify-start">
             <div>
               <h3 className="text-lg font-bold text-text-main dark:text-white mb-6">Support</h3>
               <ul className="space-y-4 mb-8">
@@ -135,21 +135,6 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-
-            <button onClick={() => scrollToSection('home')} className="block transition-transform hover:scale-105 mt-auto">
-              {/* Light Mode Logo (Green) */}
-              <img
-                src="/images/green-logo.svg"
-                alt="Dayoff Journeys"
-                className="h-64 w-auto dark:hidden -ml-4"
-              />
-              {/* Dark Mode Logo (Yellow) */}
-              <img
-                src="/images/yellow-logo.svg"
-                alt="Dayoff Journeys"
-                className="h-64 w-auto hidden dark:block -ml-4"
-              />
-            </button>
           </div>
         </div>
 
@@ -189,6 +174,42 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="flex items-center gap-4">
+              <a
+                href="https://wa.me/919633403404"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all"
+              >
+                {/* Whatsapp SVG Icon since lucide doesn't have a perfect brand icon sometimes, but checking availability. 
+                      Actually lucide-react *does not* have WhatsApp. I should use an SVG or similar style. 
+                      Wait, the prompt asked to "add whatsapp logo".
+                      I'll use a standard SVG for WhatsApp inline to ensure it matches the style. 
+                   */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                >
+                  <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61585501349783&mibextid=ZbWKwL"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
               <a
                 href="https://www.instagram.com/dayoffjourneys/"
                 target="_blank"

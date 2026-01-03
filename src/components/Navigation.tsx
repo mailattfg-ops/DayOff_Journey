@@ -35,11 +35,14 @@ export default function Navigation() {
               <button onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
                 Home
               </button>
+              <button onClick={() => navigate('/about')} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
+                About Us
+              </button>
               <button onClick={() => navigate('/destinations')} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
                 Destinations
               </button>
-              <button onClick={() => { navigate('/'); setTimeout(() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
-                About
+              <button onClick={() => navigate('/', { state: { scrollTo: 'services' } })} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
+                Services
               </button>
               <button onClick={() => { navigate('/'); setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
                 Contact
@@ -75,11 +78,14 @@ export default function Navigation() {
             <button onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
               Home
             </button>
+            <button onClick={() => { navigate('/about'); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
+              About Us
+            </button>
             <button onClick={() => { navigate('/destinations'); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
               Destinations
             </button>
-            <button onClick={() => { navigate('/'); setTimeout(() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }), 100); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
-              About
+            <button onClick={() => { navigate('/', { state: { scrollTo: 'services' } }); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
+              Services
             </button>
             <button onClick={() => { navigate('/'); setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100); setMobileMenuOpen(false); }} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
               Contact

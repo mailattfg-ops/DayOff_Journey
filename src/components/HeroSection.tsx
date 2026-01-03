@@ -60,23 +60,23 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-20 py-12 lg:py-20 w-full">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-20 py-10 lg:py-14 w-full">
         <div className="max-w-4xl space-y-6 mb-16">
           {/* Heading */}
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tight animate-fade-in-up drop-shadow-lg"
+            className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight animate-fade-in-up drop-shadow-lg"
           >
-            Escape to
+            Make memories with
             <br />
-            <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-white">Paradise</span>
+            <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-white">Dayoff Journeys</span>
           </h1>
 
           {/* Subheading */}
           <p
-            className="text-xl md:text-2xl text-white/90 max-w-2xl animate-fade-in-up font-light"
+            className="text-lg md:text-xl text-white/90 max-w-2xl animate-fade-in-up font-light"
             style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
           >
-            Discover the serene beauty of South India's finest hill stations. Curated journeys to Ooty, Munnar, and Kodaikanal.
+            Explore India’s most loved travel destinations — from misty hill stations and coastal retreats to heritage cities and spiritual landmarks.
           </p>
 
           <div

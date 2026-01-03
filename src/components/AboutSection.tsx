@@ -25,7 +25,7 @@ const values = [
 
 export default function AboutSection() {
     return (
-        <section id="about" className="scroll-mt-28 pt-6 pb-12 lg:pt-10 lg:pb-20 bg-white dark:bg-background-dark/50">
+        <section id="about" className="scroll-mt-28 py-10 lg:py-14 bg-white dark:bg-background-dark/50">
             <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl lg:text-5xl font-bold text-text-main dark:text-white mb-4">

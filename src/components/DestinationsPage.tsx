@@ -13,9 +13,12 @@ const DestinationDetailModal = lazy(() => import('./DestinationDetailModal').the
 const Footer = lazy(() => import('./Footer'));
 
 import { allDestinations } from '@/data/destinations';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function DestinationsPage() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [selectedDest, setSelectedDest] = useState<Destination | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,6 +45,22 @@ export default function DestinationsPage() {
         }
         return 'Other';
     };
+
+    // Scroll to section on load
+    useEffect(() => {
+        if (location.state && (location.state as any).scrollTo) {
+            const elementId = (location.state as any).scrollTo;
+            const element = document.getElementById(elementId);
+            if (element) {
+                // Add a small delay to ensure rendering
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+                // Clear state
+                window.history.replaceState({}, '');
+            }
+        }
+    }, [location]);
 
     // Filter Logic
     const filteredDestinations = useMemo(() => {
@@ -167,7 +186,7 @@ export default function DestinationsPage() {
                         </span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-white/90 max-w-2xl animate-fade-in-up font-light delay-200">
+                    <p className="text-lg md:text-xl text-white/90 max-w-2xl animate-fade-in-up font-light delay-200">
                         Discover the most popular places in India. From misty hills to serene backwaters and divine spiritual centers.
                     </p>
                 </div>
@@ -176,7 +195,7 @@ export default function DestinationsPage() {
             <main className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16 space-y-20">
 
                 {/* Trending Section */}
-                <section>
+                <section id="trending-now" className="scroll-mt-24">
                     <div className="flex items-center gap-2 mb-8">
                         <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
                         <h2 className="text-4xl font-bold">Trending Now</h2>
@@ -189,7 +208,7 @@ export default function DestinationsPage() {
                 </section>
 
                 {/* Spiritual Journeys Section */}
-                <section>
+                <section id="spiritual-journeys" className="scroll-mt-24">
                     <div className="flex items-center gap-2 mb-8">
                         <Heart className="w-8 h-8 text-red-500 fill-red-500" />
                         <h2 className="text-4xl font-bold">Spiritual Journeys</h2>
