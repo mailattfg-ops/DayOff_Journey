@@ -215,7 +215,7 @@ export default function About() {
 
                 <Button
                   onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
-                  className="h-16 px-10 bg-primary text-white hover:bg-primary/90 text-lg font-bold rounded-full shadow-lg hover:shadow-primary/25 transition-all hover:scale-105 active:scale-95"
+                  className="h-auto py-4 px-6 md:h-16 md:px-10 bg-primary text-white hover:bg-primary/90 text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-primary/25 transition-all hover:scale-105 active:scale-95 whitespace-normal text-center"
                 >
                   Start Your Journey
                 </Button>

@@ -1,4 +1,4 @@
-import { MapPin, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
@@ -29,13 +29,21 @@ export default function HeroSection() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % destinations.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + destinations.length) % destinations.length);
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % destinations.length);
     }, 3500);
 
     return () => clearInterval(timer);
-  }, [destinations.length]);
+  }, [destinations.length, currentIndex]);
 
   // Calculate visible items for infinite scroll effect
   // We duplicate the items to create a seamless loop effect visually if we were doing infinite scroll,
@@ -97,6 +105,25 @@ export default function HeroSection() {
 
         {/* Destination Carousel */}
         <div className="relative overflow-hidden group/carousel py-8">
+          {/* Navigation Buttons */}
+          <div className="absolute inset-y-0 left-0 z-20 flex items-center pl-2 md:pl-4 pointer-events-none">
+            <button
+              onClick={handlePrev}
+              className="pointer-events-auto h-12 w-12 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/10 group/btn"
+              aria-label="Previous destination"
+            >
+              <ChevronLeft className="w-6 h-6 group-hover/btn:-translate-x-0.5 transition-transform" />
+            </button>
+          </div>
+          <div className="absolute inset-y-0 right-0 z-20 flex items-center pr-2 md:pr-4 pointer-events-none">
+            <button
+              onClick={handleNext}
+              className="pointer-events-auto h-12 w-12 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/10 group/btn"
+              aria-label="Next destination"
+            >
+              <ChevronRight className="w-6 h-6 group-hover/btn:translate-x-0.5 transition-transform" />
+            </button>
+          </div>
           <div
             className="flex transition-transform duration-700 ease-in-out md:[--visible-items:2] lg:[--visible-items:3]"
             style={{
