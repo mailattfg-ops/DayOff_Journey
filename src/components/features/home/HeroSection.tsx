@@ -17,7 +17,7 @@ export default function HeroSection() {
 
 
 
-  const heroDestinationIds = ['ooty', 'kodaikanal', 'munnar', 'sabarimala', 'ervadi', 'kashi'];
+  const heroDestinationIds = ['ooty', 'kodaikanal', 'munnar', 'wayanad', 'hyderabad', 'sabarimala', 'ervadi', 'kashi', 'tirupati', 'beemapally', 'cheraman', 'velankanni', 'bom-jesus', 'malayattoor'];
   const destinations = heroDestinationIds.map(id => {
     const dest = allDestinations.find(d => d.id === id);
     return {

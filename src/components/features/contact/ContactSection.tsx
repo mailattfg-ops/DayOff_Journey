@@ -150,13 +150,13 @@ export default function ContactSection() {
                                 </div>
                             </a>
 
-                            <a href="mailto:info@dayoffjourneys.com" className="flex items-center gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
-                                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors">
+                            <a href="mailto:info@dayoffjourneys.com" className="flex items-center gap-4 lg:gap-6 p-4 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all cursor-pointer group border border-transparent hover:border-gray-100">
+                                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors shrink-0">
                                     <Mail className="w-6 h-6 text-primary group-hover:text-white" />
                                 </div>
-                                <div>
+                                <div className="min-w-0">
                                     <p className="text-sm text-text-muted">Send an Email</p>
-                                    <p className="text-xl font-bold text-text-main">info@dayoffjourneys.com</p>
+                                    <p className="text-lg lg:text-xl font-bold text-text-main break-all">info@dayoffjourneys.com</p>
                                 </div>
                             </a>
                         </div>
@@ -268,9 +268,9 @@ export default function ContactSection() {
 
                                 <Button
                                     type="submit"
-                                    className="w-full h-16 bg-primary text-white hover:bg-primary/90 font-bold text-lg shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] rounded-xl flex items-center justify-center gap-3"
+                                    className="w-full h-auto min-h-[4rem] py-3 bg-primary text-white hover:bg-primary/90 font-bold text-base md:text-lg shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] rounded-xl flex items-center justify-center gap-2 md:gap-3 whitespace-normal text-center"
                                 >
-                                    <MessageCircle className="w-6 h-6" />
+                                    <MessageCircle className="hidden md:block md:w-7 md:h-7 shrink-0" />
                                     Start Chat on WhatsApp
                                 </Button>
                             </form>

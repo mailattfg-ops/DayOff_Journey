@@ -3,16 +3,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
-import Navigation from './Navigation';
+import Navigation from '@/components/layout/Navigation';
 import { lazy, Suspense, useState, useMemo } from 'react';
-import { Destination } from './DestinationDetailModal';
+import { Destination } from '@/components/features/destinations/DestinationDetailModal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import SEO from './SEO';
-import LazyLoadWhenVisible from './LazyLoadWhenVisible';
+import SEO from '@/components/shared/SEO';
+import LazyLoadWhenVisible from '@/components/shared/LazyLoadWhenVisible';
 
 // Lazy load components
-const DestinationDetailModal = lazy(() => import('./DestinationDetailModal').then(module => ({ default: module.DestinationDetailModal })));
-const Footer = lazy(() => import('./Footer'));
+const DestinationDetailModal = lazy(() => import('@/components/features/destinations/DestinationDetailModal').then(module => ({ default: module.DestinationDetailModal })));
+const Footer = lazy(() => import('@/components/layout/Footer'));
 
 import { allDestinations } from '@/data/destinations';
 import { useLocation } from 'react-router-dom';
@@ -87,7 +87,7 @@ export default function DestinationsPage() {
         navigate('/', { state: { selectedDestination: destinationName, scrollTo: 'contact' } });
     };
 
-    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi'].includes(d.id));
+    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'wayanad', 'hyderabad', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi'].includes(d.id));
 
     // Explicit IDs from user request - Updated
     const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
@@ -209,18 +209,39 @@ export default function DestinationsPage() {
 
                 {/* Spiritual Journeys Section */}
                 <LazyLoadWhenVisible minHeight="400px">
-                    <section id="spiritual-journeys" className="scroll-mt-24">
-                        <div className="flex items-center gap-2 mb-8">
-                            <Heart className="w-8 h-8 text-red-500 fill-red-500" />
-                            <h2 className="text-4xl font-bold">Spiritual Journeys</h2>
+                    <section id="spiritual-journeys" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                        {/* Decorative background element */}
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                        <div className="flex flex-col md:flex-row md:items-center gap-2 mb-4">
+                            <div className="flex items-center gap-3">
+                                <Heart className="hidden md:block w-8 h-8 text-red-500 fill-red-500" />
+                                <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 pb-1">
+                                    Spiritual Journeys
+                                </h2>
+                            </div>
                         </div>
-                        <p className="text-muted-foreground mb-8 text-lg">Embark on a divine path through India's most revered pilgrimage sites.</p>
+                        <p className="text-muted-foreground mb-10 text-lg max-w-2xl">Embark on a divine path through India's most revered pilgrimage sites.</p>
 
                         <Tabs defaultValue="temples" className="w-full">
-                            <TabsList className="w-full max-w-md grid grid-cols-3 mb-8">
-                                <TabsTrigger value="temples">Temples</TabsTrigger>
-                                <TabsTrigger value="mosques">Mosques</TabsTrigger>
-                                <TabsTrigger value="churches">Churches</TabsTrigger>
+                            <TabsList className="w-full max-w-lg grid grid-cols-3 h-auto mb-12 p-1 bg-primary/5 rounded-full border border-primary/10">
+                                <TabsTrigger
+                                    value="temples"
+                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                >
+                                    Temples
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="mosques"
+                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                >
+                                    Mosques
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="churches"
+                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                >
+                                    Churches
+                                </TabsTrigger>
                             </TabsList>
                             <TabsContent value="temples" className="mt-0">
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

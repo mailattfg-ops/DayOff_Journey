@@ -1,4 +1,4 @@
-import { Destination } from '../components/DestinationDetailModal';
+import { Destination } from '@/components/features/destinations/DestinationDetailModal';
 
 export const allDestinations: Destination[] = [
     // --- South India (Tamil Nadu South & Kerala South) ---
@@ -164,6 +164,17 @@ export const allDestinations: Destination[] = [
             '/images/Waterfalls.webp'
         ],
         tagline: 'Tea Garden Paradise'
+    },
+    {
+        id: 'wayanad',
+        title: 'Wayanad',
+        location: 'Kerala',
+        description: 'A lush green paradise nestled among the mountains of the Western Ghats, famous for its wildlife, caves, and spice plantations.',
+        image: '/images/wayanad.webp',
+        tags: ['Hills', 'Nature', 'Wildlife'],
+        highlights: ['Edakkal Caves', 'Banasura Sagar Dam', 'Pookode Lake', 'Chembra Peak'],
+        bestTime: 'October to May',
+        tagline: 'Green Paradise'
     },
     {
         id: 'koratty',
@@ -376,6 +387,17 @@ export const allDestinations: Destination[] = [
         tags: ['Mosque', 'Hyderabad', 'Monument'],
         highlights: ['Charminar', 'Laad Bazaar', 'Mecca Masjid'],
         bestTime: 'October to March'
+    },
+    {
+        id: 'hyderabad',
+        title: 'Hyderabad',
+        location: 'Telangana',
+        description: 'The City of Pearls, offering a perfect blend of history, culture, and modern lifestyle with world-famous cuisine.',
+        image: '/images/Hyderabad_11zon.webp',
+        tags: ['City', 'Heritage', 'Food'],
+        highlights: ['Charminar', 'Golconda Fort', 'Ramoji Film City', 'Hussain Sagar Lake'],
+        bestTime: 'October to March',
+        tagline: 'City of Pearls'
     },
     {
         id: 'haji-ali',

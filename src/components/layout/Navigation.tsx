@@ -10,15 +10,11 @@ export default function Navigation() {
 
   const handleScroll = (id: string) => {
     setMobileMenuOpen(false);
-
-    if (location.pathname === '/') {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate('/', { state: { scrollTo: id } });
-    }
+    // Delegate all scroll logic to Home.tsx via state for robustness
+    navigate('/', {
+      state: { scrollTo: id },
+      replace: location.pathname === '/' // Don't push to history if already on home
+    });
   };
 
   const handleNavigation = (path: string) => {
@@ -53,21 +49,21 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center space-x-8">
               <button
                 onClick={() => handleNavigation('/')}
-                onMouseEnter={() => import('./home')}
+                onMouseEnter={() => import('@/pages/Home')}
                 className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
               >
                 Home
               </button>
               <button
                 onClick={() => handleNavigation('/about')}
-                onMouseEnter={() => import('./About')}
+                onMouseEnter={() => import('@/pages/About')}
                 className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
               >
                 About Us
               </button>
               <button
                 onClick={() => handleNavigation('/destinations')}
-                onMouseEnter={() => import('./DestinationsPage')}
+                onMouseEnter={() => import('@/pages/Destinations')}
                 className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
               >
                 Destinations
@@ -108,21 +104,21 @@ export default function Navigation() {
           <div className="px-6 py-4 space-y-4">
             <button
               onClick={() => handleNavigation('/')}
-              onMouseEnter={() => import('./home')}
+              onMouseEnter={() => import('@/pages/Home')}
               className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
             >
               Home
             </button>
             <button
               onClick={() => handleNavigation('/about')}
-              onMouseEnter={() => import('./About')}
+              onMouseEnter={() => import('@/pages/About')}
               className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
             >
               About Us
             </button>
             <button
               onClick={() => handleNavigation('/destinations')}
-              onMouseEnter={() => import('./DestinationsPage')}
+              onMouseEnter={() => import('@/pages/Destinations')}
               className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
             >
               Destinations

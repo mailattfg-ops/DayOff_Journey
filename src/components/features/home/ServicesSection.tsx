@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         Why Choose Us
                     </h2>
                     <p className="text-lg text-text-muted dark:text-gray-400 max-w-4xl mx-auto leading-relaxed mb-6">
-                        Day Off Journeys is a professional travel and tourism company based in Malappuram, Kerala, offering customized travel packages, pilgrimage tours, and holiday experiences across India. We specialize in delivering reliable, safe, and personalized travel solutions tailored to individual and group requirements.
+                        Dayoff Journeys is a professional travel and tourism company based in Malappuram, Kerala, offering customized travel packages, pilgrimage tours, and holiday experiences across India. We specialize in delivering reliable, safe, and personalized travel solutions tailored to individual and group requirements.
                     </p>
                 </div>
 
@@ -88,7 +88,7 @@ export default function ServicesSection() {
                 {/* Footer Text */}
                 <div className="text-center bg-primary/5 dark:bg-white/5 rounded-3xl p-8 lg:p-12">
                     <p className="text-lg lg:text-xl font-medium text-text-main dark:text-white max-w-4xl mx-auto leading-relaxed">
-                        "Our focus on quality service, customer satisfaction, and local expertise makes Day Off Journeys a trusted choice for travelers seeking memorable and hassle-free travel experiences."
+                        "Our focus on quality service, customer satisfaction, and local expertise makes Dayoff Journeys a trusted choice for travelers seeking memorable and hassle-free travel experiences."
                     </p>
                 </div>
             </div>

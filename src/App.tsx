@@ -1,13 +1,14 @@
 import { Suspense, lazy } from "react";
 import { HelmetProvider } from 'react-helmet-async';
 import { Routes, Route } from "react-router-dom";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 // Lazy load pages
-const Home = lazy(() => import("./components/home"));
-const DestinationsPage = lazy(() => import("./components/DestinationsPage"));
-const About = lazy(() => import("./components/About"));
-const NotFound = lazy(() => import("./components/NotFound.tsx"));
+// Lazy load pages
+const Home = lazy(() => import("@/pages/Home"));
+const DestinationsPage = lazy(() => import("@/pages/Destinations"));
+const About = lazy(() => import("@/pages/About"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 
 function App() {
   return (

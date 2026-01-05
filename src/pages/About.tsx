@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import Navigation from './Navigation';
-import SEO from './SEO';
+import Navigation from '@/components/layout/Navigation';
+import SEO from '@/components/shared/SEO';
 import { Heart, Shield, Award, Globe, MapPin, Users, ArrowLeft } from 'lucide-react';
 import { lazy, Suspense } from 'react';
-import LazyLoadWhenVisible from './LazyLoadWhenVisible';
+import LazyLoadWhenVisible from '@/components/shared/LazyLoadWhenVisible';
 
-const Footer = lazy(() => import('./Footer'));
-const FloatingWhatsApp = lazy(() => import('./FloatingWhatsApp'));
+const Footer = lazy(() => import('@/components/layout/Footer'));
+const FloatingWhatsApp = lazy(() => import('@/components/features/contact/FloatingWhatsApp'));
 
 const missionPoints = [
   {
@@ -47,7 +47,7 @@ export default function About() {
     <div className="min-h-screen w-full bg-background">
       <SEO
         title="About Us | Your Trusted Travel Partner"
-        description="Day Off Journeys creates meaningful and seamless travel experiences. Learn about our story, mission, and the team behind your perfect trip."
+        description="Dayoff Journeys creates meaningful and seamless travel experiences. Learn about our story, mission, and the team behind your perfect trip."
         canonical="/about"
       />
       <Navigation />
@@ -62,7 +62,7 @@ export default function About() {
             className="w-full h-full object-cover"
             loading="eager"
             fetchPriority="high"
-            decoding="sync"
+            decoding="async"
             width={1920}
             height={1080}
           />
@@ -87,7 +87,7 @@ export default function About() {
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 max-w-2xl animate-fade-in-up font-light will-change-transform">
-            Day Off Journeys — Your trusted partner for meaningful and seamless travel experiences.
+            Dayoff Journeys — Your trusted partner for meaningful and seamless travel experiences.
           </p>
         </div>
       </div>
@@ -102,13 +102,13 @@ export default function About() {
                   Who We Are
                 </h2>
                 <p className="text-lg text-text-muted dark:text-gray-400 mb-6">
-                  Day Off Journeys is a trusted travel service company based in Malappuram, specializing in curated and personalized travel experiences across Kerala, South India, and other parts of India.
+                  Dayoff Journeys is a trusted travel service company based in Malappuram, specializing in curated and personalized travel experiences across Kerala, South India, and other parts of India.
                 </p>
                 <p className="text-lg text-text-muted dark:text-gray-400 mb-6">
                   Founded with a vision to create meaningful and seamless journeys, we focus on planning tailor-made travel experiences designed around our clients’ interests, preferences, and budgets. Whether it’s a family vacation, an outstation trip, a nature escape, or a spiritual journey, our team ensures smooth planning, reliable coordination, and hassle-free travel.
                 </p>
                 <p className="text-lg text-text-muted dark:text-gray-400">
-                  At Day Off Journeys, we believe travel should be relaxing and worry-free. With a strong emphasis on comfort, safety, and privacy, we carefully plan every detail to deliver high-quality service and memorable experiences. Our personalized approach and local expertise allow us to transform travel dreams into reality.
+                  At Dayoff Journeys, we believe travel should be relaxing and worry-free. With a strong emphasis on comfort, safety, and privacy, we carefully plan every detail to deliver high-quality service and memorable experiences. Our personalized approach and local expertise allow us to transform travel dreams into reality.
                 </p>
               </div>
               <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
@@ -243,7 +243,7 @@ export default function About() {
               <div className="bg-gray-50 dark:bg-white/5 p-8 rounded-3xl shadow-lg border border-gray-100 dark:border-white/10 relative hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                 <div className="absolute -top-4 -left-4 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-serif">"</div>
                 <p className="text-text-muted dark:text-gray-300 mb-6 italic leading-relaxed">
-                  "We wanted a peaceful getaway to Munnar, and Day Off Journeys delivered beyond expectations. The resort selection was perfect!"
+                  "We wanted a peaceful getaway to Munnar, and Dayoff Journeys delivered beyond expectations. The resort selection was perfect!"
                 </p>
                 <div>
                   <h4 className="font-bold text-text-main dark:text-white">Arjun K.</h4>

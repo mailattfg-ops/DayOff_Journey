@@ -44,7 +44,7 @@ export default function NotFound() {
 
             {/* Footer minimal */}
             <div className="absolute bottom-8 text-center text-text-muted/60 text-sm">
-                Day Off Journeys &copy; {new Date().getFullYear()}
+                Dayoff Journeys &copy; {new Date().getFullYear()}
             </div>
         </div>
     );
