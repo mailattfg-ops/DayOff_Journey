@@ -87,7 +87,7 @@ export default function DestinationsPage() {
         navigate('/', { state: { selectedDestination: destinationName, scrollTo: 'contact' } });
     };
 
-    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'wayanad', 'hyderabad', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi'].includes(d.id));
+    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'wayanad', 'hyderabad', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi', 'trivandrum'].includes(d.id));
 
     // Explicit IDs from user request - Updated
     const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
@@ -195,9 +195,12 @@ export default function DestinationsPage() {
                 {/* Trending Section */}
                 <LazyLoadWhenVisible minHeight="400px">
                     <section id="trending-now" className="scroll-mt-24">
-                        <div className="flex items-center gap-2 mb-8">
-                            <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
-                            <h2 className="text-4xl font-bold">Trending Now</h2>
+                        <div className="flex flex-col mb-8">
+                            <div className="flex items-center gap-2">
+                                <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
+                                <h2 className="text-4xl font-bold">Trending Now</h2>
+                            </div>
+                            <p className="text-muted-foreground mt-1 ml-10">Top rated by travellers</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {trendingDestinations.map(place => (

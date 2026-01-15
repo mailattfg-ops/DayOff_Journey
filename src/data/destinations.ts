@@ -138,6 +138,16 @@ export const allDestinations: Destination[] = [
         tagline: 'Queen of Arabian Sea'
     },
     {
+        id: 'trivandrum',
+        title: 'Trivandrum (Thiruvananthapuram)',
+        location: 'Kerala',
+        description: 'Famous for Kovalam beach, Poovar Island, temples, Puthen Malika Puthenmalika palace museum, Agastya Mala, Varkala beach, Vizhinjam light house, Shanghumukam beach',
+        image: '/images/trivandrum_img_11zon.webp',
+        tags: ['City', 'Kerala', 'Heritage', 'Beach'],
+        highlights: ['Padmanabhaswamy Temple', 'Kovalam Beach', 'Varkala Cliff', 'Poovar Island'],
+        bestTime: 'October to March'
+    },
+    {
         id: 'malayattoor',
         title: 'Malayattoor Church',
         location: 'Kerala',
