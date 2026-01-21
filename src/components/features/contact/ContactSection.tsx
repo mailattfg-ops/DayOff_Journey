@@ -222,10 +222,6 @@ export default function ContactSection() {
                                                             {dest.title}
                                                         </SelectItem>
                                                     ))}
-                                                    <SelectItem value="Kanyakumari">Kanyakumari</SelectItem>
-                                                    <SelectItem value="Assam">Assam</SelectItem>
-                                                    <SelectItem value="Meghalaya">Meghalaya</SelectItem>
-                                                    <SelectItem value="Sikkim">Sikkim</SelectItem>
                                                     <SelectItem value="Other">Other</SelectItem>
                                                 </SelectContent>
                                             </Select>

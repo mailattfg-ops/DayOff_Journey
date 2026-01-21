@@ -18,6 +18,13 @@ import { allDestinations } from '@/data/destinations';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// Explicit IDs from user request
+const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
+const mosqueIds = ['ervadi', 'beemapally', 'thangal-para', 'muthupet', 'nagore', 'cheraman', 'malik-dinar', 'ullal', 'charminar', 'haji-ali', 'jama-masjid', 'ajmer'];
+const churchIds = ['thiruvithamcode', 'edathua', 'bharananganam', 'malayattoor', 'koratty', 'velankanni', 'st-thomas-mount', 'bom-jesus'];
+
+const allSpiritualIds = [...templeIds, ...mosqueIds, ...churchIds];
+
 export default function DestinationsPage() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -73,7 +80,9 @@ export default function DestinationsPage() {
             const region = getRegion(dest.location);
             const matchesRegion = selectedRegion === 'All' || region === selectedRegion;
 
-            return matchesSearch && matchesRegion;
+            const isSpiritual = allSpiritualIds.includes(dest.id);
+
+            return matchesSearch && matchesRegion && !isSpiritual;
         });
     }, [searchQuery, selectedRegion]);
 
@@ -87,12 +96,9 @@ export default function DestinationsPage() {
         navigate('/', { state: { selectedDestination: destinationName, scrollTo: 'contact' } });
     };
 
-    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'wayanad', 'hyderabad', 'mysuru', 'alleppey', 'kochi', 'kodungallur', 'coorg', 'hampi', 'trivandrum'].includes(d.id));
+    const trendingDestinations = allDestinations.filter(d => ['ooty', 'munnar', 'kodaikanal', 'wayanad', 'hyderabad'].includes(d.id));
 
-    // Explicit IDs from user request - Updated
-    const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
-    const mosqueIds = ['ervadi', 'beemapally', 'thangal-para', 'muthupet', 'nagore', 'cheraman', 'malik-dinar', 'ullal', 'charminar', 'haji-ali', 'jama-masjid', 'ajmer'];
-    const churchIds = ['thiruvithamcode', 'edathua', 'bharananganam', 'malayattoor', 'koratty', 'velankanni', 'st-thomas-mount', 'bom-jesus'];
+    // Spiritual IDs are now defined outside component
 
     const spiritualDestinations = {
         temples: allDestinations.filter(d => templeIds.includes(d.id)),
@@ -194,8 +200,9 @@ export default function DestinationsPage() {
 
                 {/* All Destinations */}
                 <LazyLoadWhenVisible minHeight="600px">
-                    <section id="all-destinations" className="scroll-mt-24">
-                        <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8">
+                    <section id="all-destinations" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                        <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
                             <h2 className="text-4xl font-bold">Explore All Destinations</h2>
                         </div>
 
@@ -294,8 +301,9 @@ export default function DestinationsPage() {
 
                 {/* Trending Section */}
                 <LazyLoadWhenVisible minHeight="400px">
-                    <section id="trending-now" className="scroll-mt-24">
-                        <div className="flex flex-col mb-8">
+                    <section id="trending-now" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                        <div className="flex flex-col mb-8 relative z-10">
                             <div className="flex items-center gap-2">
                                 <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
                                 <h2 className="text-4xl font-bold">Trending Now</h2>

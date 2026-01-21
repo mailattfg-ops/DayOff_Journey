@@ -522,5 +522,101 @@ export const allDestinations: Destination[] = [
         tags: ['Wildlife', 'Tea', 'River'],
         highlights: ['Kaziranga National Park', 'Kamakhya Temple', 'Majuli Island'],
         bestTime: 'November to April'
+    },
+    // --- New North India Destinations ---
+    {
+        id: 'jaipur',
+        title: 'Jaipur',
+        location: 'Rajasthan',
+        description: 'The Pink City, known for its stunning forts, palaces, and vibrant bazaars.',
+        image: '/images/jaipur_11zon.webp',
+        tags: ['Heritage', 'Forts', 'Culture'],
+        highlights: ['Amber Fort', 'Hawa Mahal', 'City Palace', 'Jantar Mantar'],
+        bestTime: 'October to March',
+        tagline: 'The Pink City'
+    },
+    {
+        id: 'agra',
+        title: 'Agra',
+        location: 'Uttar Pradesh',
+        description: 'Home to the Taj Mahal, a symbol of eternal love and an architectural marvel.',
+        image: '/images/agra_11zon.webp',
+        tags: ['Heritage', 'Mughal', 'Monument'],
+        highlights: ['Taj Mahal', 'Agra Fort', 'Fatehpur Sikri'],
+        bestTime: 'October to March'
+    },
+    {
+        id: 'manali',
+        title: 'Manali',
+        location: 'Himachal Pradesh',
+        description: 'A high-altitude Himalayan resort town famous for its backpacking trails and skiing.',
+        image: '/images/manali_11zon.webp',
+        tags: ['Hills', 'Snow', 'Adventure'],
+        highlights: ['Solang Valley', 'Rohtang Pass', 'Hadimba Temple', 'Mall Road'],
+        bestTime: 'October to June'
+    },
+    {
+        id: 'udaipur',
+        title: 'Udaipur',
+        location: 'Rajasthan',
+        description: 'The City of Lakes, famous for its lavish royal residences and artificial lakes.',
+        image: '/images/udaipur_11zon.webp',
+        tags: ['Heritage', 'Lakes', 'Romance'],
+        highlights: ['City Palace', 'Lake Pichola', 'Jag Mandir'],
+        bestTime: 'September to March',
+        tagline: 'City of Lakes'
+    },
+    {
+        id: 'kashmir',
+        title: 'Kashmir',
+        location: 'Jammu & Kashmir',
+        description: 'Often called "Paradise on Earth", known for its houseboats, gardens, and snow-capped mountains.',
+        image: '/images/kashmir_11zon.webp',
+        tags: ['Nature', 'Snow', 'Lakes'],
+        highlights: ['Dal Lake', 'Gulmarg', 'Pahalgam', 'Sonamarg'],
+        bestTime: 'March to October',
+        tagline: 'Paradise on Earth'
+    },
+
+    // --- New West India Destinations ---
+    {
+        id: 'goa-beach',
+        title: 'Goa Beaches',
+        location: 'Goa',
+        description: 'Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage.',
+        image: '/images/Goa_11zon.webp',
+        tags: ['Beach', 'Party', 'Relaxation'],
+        highlights: ['Calangute Beach', 'Baga Beach', 'Dudhsagar Falls'],
+        bestTime: 'November to February'
+    },
+    {
+        id: 'mumbai-city',
+        title: 'Mumbai',
+        location: 'Maharashtra',
+        description: 'The City of Dreams, a melting pot of cultures, colonial architecture, and bustling markets.',
+        image: '/images/mumbai_11zon.webp',
+        tags: ['City', 'Herigate', 'Coastal'],
+        highlights: ['Gateway of India', 'Marine Drive', 'Elephanta Caves'],
+        bestTime: 'October to March'
+    },
+    {
+        id: 'lonavala',
+        title: 'Lonavala',
+        location: 'Maharashtra',
+        description: 'A popular hill station known for its green valleys, waterfalls, and caves.',
+        image: '/images/lonavala_11zon.webp',
+        tags: ['Hills', 'Monsoon', 'Nature'],
+        highlights: ['Tiger Point', 'Bhushi Dam', 'Karla Caves'],
+        bestTime: 'June to September, December to February'
+    },
+    {
+        id: 'rann-of-kutch',
+        title: 'Rann of Kutch',
+        location: 'Gujarat',
+        description: 'A vast salt marsh in the Thar Desert, famous for the Rann Utsav and white desert landscape.',
+        image: '/images/Rann-of-Kutch_11zon.webp',
+        tags: ['Desert', 'Culture', 'Nature'],
+        highlights: ['White Desert', 'Rann Utsav', 'Kala Dungar'],
+        bestTime: 'November to February'
     }
 ];
