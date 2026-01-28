@@ -1,4 +1,4 @@
-import { ArrowLeft, MapPin, Star, Heart, Search, ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowLeft, MapPin, Star, Heart, Search, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -198,14 +198,7 @@ export default function DestinationsPage() {
                             <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
                                 <div>
                                     <h2 className="text-4xl font-bold">Explore All Destinations</h2>
-                                    <p className="text-muted-foreground mt-2 text-lg">Discover breathtaking destinations crafted for every kind of traveler.</p>
                                 </div>
-                                <Button
-                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
-                                    className="hidden md:flex gap-2 rounded-full"
-                                >
-                                    Explore Now <ArrowRight className="w-4 h-4" />
-                                </Button>
                             </div>
 
                             {/* Search & Filter Controls */}
@@ -313,14 +306,7 @@ export default function DestinationsPage() {
                                         <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
                                         <h2 className="text-4xl font-bold">Trending Now</h2>
                                     </div>
-                                    <p className="text-muted-foreground mt-2 ml-10 text-lg">Explore the most loved and trending travel experiences of the season.</p>
                                 </div>
-                                <Button
-                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
-                                    className="hidden md:flex gap-2 rounded-full"
-                                >
-                                    Explore Now <ArrowRight className="w-4 h-4" />
-                                </Button>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {trendingDestinations.map(place => (
@@ -345,14 +331,7 @@ export default function DestinationsPage() {
                                             Spiritual Journeys
                                         </h2>
                                     </div>
-                                    <p className="text-muted-foreground mt-2 text-lg max-w-2xl">Begin a soulful journey to sacred places that inspire peace and devotion.</p>
                                 </div>
-                                <Button
-                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
-                                    className="hidden md:flex gap-2 rounded-full"
-                                >
-                                    Explore Now <ArrowRight className="w-4 h-4" />
-                                </Button>
                             </div>
 
 

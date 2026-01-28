@@ -11,7 +11,7 @@ const slides = [
     image: '/images/kashi.webp',
     category: 'Spiritual Journey',
     headline: 'Discover India’s Sacred Paths',
-    subline: 'Journey through timeless temples, divine shrines, and spiritually uplifting destinations that inspire peace and devotion.',
+    subline: 'Begin a soulful journey to sacred places that inspire peace and devotion.',
     targetId: 'spiritual-journeys'
   },
   {
@@ -19,7 +19,7 @@ const slides = [
     image: '/images/alleppey.webp',
     category: 'Explore All',
     headline: 'Explore India, One Destination at a Time',
-    subline: 'From misty hill stations to vibrant cities and coastal escapes, uncover experiences crafted for every kind of traveler.',
+    subline: 'Discover breathtaking destinations crafted for every kind of traveler.',
     targetId: 'all-destinations'
   },
   {
@@ -27,7 +27,7 @@ const slides = [
     image: '/images/manali_11zon.webp',
     category: 'Trending Now',
     headline: 'Travel What Everyone’s Talking About',
-    subline: 'Experience India’s most loved and trending destinations, handpicked for unforgettable journeys right now.',
+    subline: 'Explore the most loved and trending travel experiences of the season.',
     targetId: 'trending-now'
   }
 ];
@@ -144,7 +144,7 @@ export default function HeroSection() {
                <p className="text-sm md:text-base text-white/80 font-medium tracking-[0.2em] uppercase mb-1">
                  Where Memories Are Beautifully Crafted
                </p>
-               <h2 className="text-3xl md:text-5xl font-black tracking-tighter">
+               <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
                  <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-white">
                    DayOff Journeys
                  </span>
