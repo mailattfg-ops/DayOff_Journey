@@ -1,4 +1,4 @@
-import { ArrowLeft, MapPin, Star, Heart, Search, ArrowDown } from 'lucide-react';
+import { ArrowLeft, MapPin, Star, Heart, Search, ArrowDown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,7 @@ const Footer = lazy(() => import('@/components/layout/Footer'));
 
 import { allDestinations } from '@/data/destinations';
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useScrollToLocation } from '@/hooks/useScrollToLocation';
 
 // Explicit IDs from user request
 const templeIds = ['kanyakumari-devi', 'rameswaram', 'guruvayur', 'madurai', 'sabarimala', 'tirupati', 'shirdi', 'kashi', 'badrinath', 'kedarnath', 'vaishno-devi'];
@@ -56,20 +56,7 @@ export default function DestinationsPage() {
     };
 
     // Scroll to section on load
-    useEffect(() => {
-        if (location.state && (location.state as any).scrollTo) {
-            const elementId = (location.state as any).scrollTo;
-            const element = document.getElementById(elementId);
-            if (element) {
-                // Add a small delay to ensure rendering
-                setTimeout(() => {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-                // Clear state
-                window.history.replaceState({}, '');
-            }
-        }
-    }, [location]);
+    useScrollToLocation();
 
     // Filter Logic
     const filteredDestinations = useMemo(() => {
@@ -158,6 +145,11 @@ export default function DestinationsPage() {
     return (
         <div className="min-h-screen bg-background text-foreground">
             <Navigation />
+            <SEO 
+                title="Destinations" 
+                description="Explore top destinations in South India." 
+                preloadImages={['/images/explore_destination.webp']}
+            />
 
             {/* Hero Section */}
             <div className="relative min-h-[50vh] w-full overflow-hidden flex flex-col justify-center py-20">
@@ -199,185 +191,217 @@ export default function DestinationsPage() {
             <main className="max-w-[1440px] mx-auto px-6 lg:px-20 py-16 space-y-20">
 
                 {/* All Destinations */}
-                <LazyLoadWhenVisible minHeight="600px">
-                    <section id="all-destinations" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-                        <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
-                            <h2 className="text-4xl font-bold">Explore All Destinations</h2>
-                        </div>
-
-                        {/* Search & Filter Controls */}
-                        <div className="space-y-6 mb-12">
-                            {/* Search Bar */}
-                            <div className="relative max-w-md">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                                <Input
-                                    type="text"
-                                    placeholder="Search places, locations..."
-                                    className="pl-10 h-12 text-lg rounded-full border-2 border-border/50 hover:border-primary/50 focus:border-primary transition-all"
-                                    value={searchQuery}
-                                    onChange={(e) => {
-                                        setSearchQuery(e.target.value);
-                                        setVisibleCount(9); // Reset visible count on search
-                                    }}
-                                />
+                <div id="all-destinations" className="scroll-mt-24">
+                    <LazyLoadWhenVisible minHeight="600px">
+                        <section className="bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                            <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
+                                <div>
+                                    <h2 className="text-4xl font-bold">Explore All Destinations</h2>
+                                    <p className="text-muted-foreground mt-2 text-lg">Discover breathtaking destinations crafted for every kind of traveler.</p>
+                                </div>
+                                <Button
+                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
+                                    className="hidden md:flex gap-2 rounded-full"
+                                >
+                                    Explore Now <ArrowRight className="w-4 h-4" />
+                                </Button>
                             </div>
 
-                            {/* Category/Region Filters */}
-                            <div className="flex flex-wrap gap-2">
-                                {regions.map(region => (
-                                    <Button
-                                        key={region}
-                                        variant={selectedRegion === region ? "default" : "outline"}
-                                        onClick={() => {
-                                            setSelectedRegion(region);
-                                            setVisibleCount(9); // Reset visible count on region change
+                            {/* Search & Filter Controls */}
+                            <div className="space-y-6 mb-12">
+                                {/* Search Bar */}
+                                <div className="relative max-w-md">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                                    <Input
+                                        type="text"
+                                        placeholder="Search places, locations..."
+                                        className="pl-10 h-12 text-lg rounded-full border-2 border-border/50 hover:border-primary/50 focus:border-primary transition-all"
+                                        value={searchQuery}
+                                        onChange={(e) => {
+                                            setSearchQuery(e.target.value);
+                                            setVisibleCount(9); // Reset visible count on search
                                         }}
-                                        className={`rounded-full border-border/50 ${selectedRegion === region ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'hover:border-primary/50 hover:bg-transparent'}`}
-                                    >
-                                        {region}
-                                    </Button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Destinations Grid */}
-                        {filteredDestinations.length > 0 ? (
-                            <>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {filteredDestinations.slice(0, visibleCount).map((place) => (
-                                        <DestinationCard key={place.id} place={place} />
-                                    ))}
+                                    />
                                 </div>
 
-                                {/* Load More Button */}
-                                {visibleCount < filteredDestinations.length && (
-                                    <div className="mt-12 flex justify-center">
+                                {/* Category/Region Filters */}
+                                <div className="flex flex-wrap gap-2">
+                                    {regions.map(region => (
                                         <Button
-                                            size="lg"
-                                            variant="outline"
-                                            onClick={() => setVisibleCount(prev => prev + 9)}
-                                            className="h-12 px-8 rounded-full border-2 hover:bg-primary hover:text-white hover:border-primary transition-all group"
+                                            key={region}
+                                            variant={selectedRegion === region ? "default" : "outline"}
+                                            onClick={() => {
+                                                setSelectedRegion(region);
+                                                setVisibleCount(9); // Reset visible count on region change
+                                            }}
+                                            className={`rounded-full border-border/50 ${selectedRegion === region ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'hover:border-primary/50 hover:bg-transparent'}`}
                                         >
-                                            Load More Destinations
-                                            <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                                            {region}
+                                        </Button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Destinations Grid */}
+                            {filteredDestinations.length > 0 ? (
+                                <>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {filteredDestinations.slice(0, visibleCount).map((place) => (
+                                            <DestinationCard key={place.id} place={place} />
+                                        ))}
+                                    </div>
+
+                                    {/* Load More Button */}
+                                    {visibleCount < filteredDestinations.length && (
+                                        <div className="mt-12 flex justify-center">
+                                            <Button
+                                                size="lg"
+                                                variant="outline"
+                                                onClick={() => setVisibleCount(prev => prev + 9)}
+                                                className="h-12 px-8 rounded-full border-2 hover:bg-primary hover:text-white hover:border-primary transition-all group"
+                                            >
+                                                Load More Destinations
+                                                <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                                            </Button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="text-center py-20 bg-muted/30 rounded-3xl">
+                                    <p className="text-2xl text-muted-foreground font-medium mb-6">
+                                        {searchQuery ? `No destinations found matching "${searchQuery}"` : `No destinations found in ${selectedRegion}`}
+                                    </p>
+
+                                    <div className="flex flex-col items-center gap-4">
+                                        <Button
+                                            onClick={() => {
+                                                const term = searchQuery || selectedRegion;
+                                                navigate('/', { state: { customDestination: term, scrollTo: 'contact' } });
+                                            }}
+                                            size="lg"
+                                            className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                                        >
+                                            Plan a Trip into {searchQuery || selectedRegion}
+                                        </Button>
+
+                                        <Button
+                                            variant="link"
+                                            onClick={() => {
+                                                setSearchQuery('');
+                                                setSelectedRegion('All');
+                                            }}
+                                            className="text-muted-foreground hover:text-primary"
+                                        >
+                                            Clear all filters to see all places
                                         </Button>
                                     </div>
-                                )}
-                            </>
-                        ) : (
-                            <div className="text-center py-20 bg-muted/30 rounded-3xl">
-                                <p className="text-2xl text-muted-foreground font-medium mb-6">
-                                    {searchQuery ? `No destinations found matching "${searchQuery}"` : `No destinations found in ${selectedRegion}`}
-                                </p>
-
-                                <div className="flex flex-col items-center gap-4">
-                                    <Button
-                                        onClick={() => {
-                                            const term = searchQuery || selectedRegion;
-                                            navigate('/', { state: { customDestination: term, scrollTo: 'contact' } });
-                                        }}
-                                        size="lg"
-                                        className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
-                                    >
-                                        Plan a Trip into {searchQuery || selectedRegion}
-                                    </Button>
-
-                                    <Button
-                                        variant="link"
-                                        onClick={() => {
-                                            setSearchQuery('');
-                                            setSelectedRegion('All');
-                                        }}
-                                        className="text-muted-foreground hover:text-primary"
-                                    >
-                                        Clear all filters to see all places
-                                    </Button>
                                 </div>
-                            </div>
-                        )}
-                    </section>
-                </LazyLoadWhenVisible>
+                            )}
+                        </section>
+                    </LazyLoadWhenVisible>
+                </div>
 
                 {/* Trending Section */}
-                <LazyLoadWhenVisible minHeight="400px">
-                    <section id="trending-now" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-                        <div className="flex flex-col mb-8 relative z-10">
-                            <div className="flex items-center gap-2">
-                                <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
-                                <h2 className="text-4xl font-bold">Trending Now</h2>
+                <div id="trending-now" className="scroll-mt-24">
+                    <LazyLoadWhenVisible minHeight="400px">
+                        <section className="bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                            <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
+                                        <h2 className="text-4xl font-bold">Trending Now</h2>
+                                    </div>
+                                    <p className="text-muted-foreground mt-2 ml-10 text-lg">Explore the most loved and trending travel experiences of the season.</p>
+                                </div>
+                                <Button
+                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
+                                    className="hidden md:flex gap-2 rounded-full"
+                                >
+                                    Explore Now <ArrowRight className="w-4 h-4" />
+                                </Button>
                             </div>
-                            <p className="text-muted-foreground mt-1 ml-10">Top rated by travellers</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {trendingDestinations.map(place => (
-                                <DestinationCard key={place.id} place={place} />
-                            ))}
-                        </div>
-                    </section>
-                </LazyLoadWhenVisible>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {trendingDestinations.map(place => (
+                                    <DestinationCard key={place.id} place={place} />
+                                ))}
+                            </div>
+                        </section>
+                    </LazyLoadWhenVisible>
+                </div>
 
                 {/* Spiritual Journeys Section */}
-                <LazyLoadWhenVisible minHeight="400px">
-                    <section id="spiritual-journeys" className="scroll-mt-24 bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
-                        {/* Decorative background element */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-                        <div className="flex flex-col md:flex-row md:items-center gap-2 mb-4">
-                            <div className="flex items-center gap-3">
-                                <Heart className="hidden md:block w-8 h-8 text-red-500 fill-red-500" />
-                                <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 pb-1">
-                                    Spiritual Journeys
-                                </h2>
+                <div id="spiritual-journeys" className="scroll-mt-24">
+                    <LazyLoadWhenVisible minHeight="400px">
+                        <section className="bg-primary/5 rounded-[2.5rem] p-6 md:p-12 border border-primary/10 relative overflow-hidden">
+                            {/* Decorative background element */}
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+                            <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mb-8 relative z-10">
+                                <div>
+                                    <div className="flex items-center gap-3">
+                                        <Heart className="hidden md:block w-8 h-8 text-red-500 fill-red-500" />
+                                        <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 pb-1">
+                                            Spiritual Journeys
+                                        </h2>
+                                    </div>
+                                    <p className="text-muted-foreground mt-2 text-lg max-w-2xl">Begin a soulful journey to sacred places that inspire peace and devotion.</p>
+                                </div>
+                                <Button
+                                    onClick={() => navigate('/', { state: { scrollTo: 'contact' } })}
+                                    className="hidden md:flex gap-2 rounded-full"
+                                >
+                                    Explore Now <ArrowRight className="w-4 h-4" />
+                                </Button>
                             </div>
-                        </div>
-                        <p className="text-muted-foreground mb-10 text-lg max-w-2xl">Embark on a divine path through India's most revered pilgrimage sites.</p>
 
-                        <Tabs defaultValue="temples" className="w-full">
-                            <TabsList className="w-full max-w-lg grid grid-cols-3 h-auto mb-12 p-1 bg-primary/5 rounded-full border border-primary/10">
-                                <TabsTrigger
-                                    value="temples"
-                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
-                                >
-                                    Temples
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="mosques"
-                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
-                                >
-                                    Mosques
-                                </TabsTrigger>
-                                <TabsTrigger
-                                    value="churches"
-                                    className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
-                                >
-                                    Churches
-                                </TabsTrigger>
-                            </TabsList>
-                            <TabsContent value="temples" className="mt-0">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {spiritualDestinations.temples.map(place => (
-                                        <DestinationCard key={place.id} place={place} />
-                                    ))}
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="mosques" className="mt-0">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {spiritualDestinations.mosques.map(place => (
-                                        <DestinationCard key={place.id} place={place} />
-                                    ))}
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="churches" className="mt-0">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {spiritualDestinations.churches.map(place => (
-                                        <DestinationCard key={place.id} place={place} />
-                                    ))}
-                                </div>
-                            </TabsContent>
-                        </Tabs>
-                    </section>
-                </LazyLoadWhenVisible>
+
+                            <Tabs defaultValue="temples" className="w-full">
+                                <TabsList className="w-full max-w-lg grid grid-cols-3 h-auto mb-12 p-1 bg-primary/5 rounded-full border border-primary/10">
+                                    <TabsTrigger
+                                        value="temples"
+                                        className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                    >
+                                        Temples
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="mosques"
+                                        className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                    >
+                                        Mosques
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="churches"
+                                        className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 py-3 font-medium whitespace-normal h-full flex items-center justify-center leading-tight"
+                                    >
+                                        Churches
+                                    </TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="temples" className="mt-0">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {spiritualDestinations.temples.map(place => (
+                                            <DestinationCard key={place.id} place={place} />
+                                        ))}
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="mosques" className="mt-0">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {spiritualDestinations.mosques.map(place => (
+                                            <DestinationCard key={place.id} place={place} />
+                                        ))}
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="churches" className="mt-0">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {spiritualDestinations.churches.map(place => (
+                                            <DestinationCard key={place.id} place={place} />
+                                        ))}
+                                    </div>
+                                </TabsContent>
+                            </Tabs>
+                        </section>
+                    </LazyLoadWhenVisible>
+                </div>
             </main>
 
             <Suspense fallback={null}>

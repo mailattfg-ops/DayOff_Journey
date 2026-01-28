@@ -49,6 +49,7 @@ export default function About() {
         title="About Us | Your Trusted Travel Partner"
         description="Dayoff Journeys creates meaningful and seamless travel experiences. Learn about our story, mission, and the team behind your perfect trip."
         canonical="/about"
+        preloadImages={['/images/about-us-hero.webp']}
       />
       <Navigation />
 

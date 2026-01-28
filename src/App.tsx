@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 
 // Lazy load pages
-// Lazy load pages
+
 const Home = lazy(() => import("@/pages/Home"));
 const DestinationsPage = lazy(() => import("@/pages/Destinations"));
 const About = lazy(() => import("@/pages/About"));

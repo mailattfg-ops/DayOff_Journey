@@ -1,167 +1,245 @@
-import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState, useEffect } from 'react';
-import { allDestinations } from '@/data/destinations';
+
+// Slide Data
+const slides = [
+  {
+    id: 'spiritual',
+    image: '/images/kashi.webp',
+    category: 'Spiritual Journey',
+    headline: 'Discover India’s Sacred Paths',
+    subline: 'Journey through timeless temples, divine shrines, and spiritually uplifting destinations that inspire peace and devotion.',
+    targetId: 'spiritual-journeys'
+  },
+  {
+    id: 'explore-all',
+    image: '/images/alleppey.webp',
+    category: 'Explore All',
+    headline: 'Explore India, One Destination at a Time',
+    subline: 'From misty hill stations to vibrant cities and coastal escapes, uncover experiences crafted for every kind of traveler.',
+    targetId: 'all-destinations'
+  },
+  {
+    id: 'trending',
+    image: '/images/manali_11zon.webp',
+    category: 'Trending Now',
+    headline: 'Travel What Everyone’s Talking About',
+    subline: 'Experience India’s most loved and trending destinations, handpicked for unforgettable journeys right now.',
+    targetId: 'trending-now'
+  }
+];
 
 export default function HeroSection() {
   const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const isFirstRender = useRef(true);
 
-  const handleBookNow = (title: string) => {
-    navigate('/', { state: { selectedDestination: title, scrollTo: 'contact' } });
-  };
+  // Auto-slide logic
+  useEffect(() => {
+    // Disable first render flag after first mount (and potentially strictly after first paint if we want to be safe, but Effect is fine)
+    // Actually, setting it in useEffect ensures subsequent renders (due to state change) see it as false.
+    // However, StrictMode might run this twice, but for production it's fine.
+    // For the very first paint, ref is true.
+    const timer = setInterval(() => {
+        isFirstRender.current = false; // Ensure it's false for subsequent slides
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000); 
 
-  const scrollToContact = () => {
-    navigate('/', { state: { scrollTo: 'contact' } });
-  };
+    return () => clearInterval(timer);
+  }, []);
 
-
-
-  const heroDestinationIds = ['ooty', 'kodaikanal', 'munnar', 'wayanad', 'hyderabad', 'sabarimala', 'ervadi', 'kashi', 'tirupati', 'beemapally', 'cheraman', 'velankanni', 'bom-jesus', 'malayattoor'];
-  const destinations = heroDestinationIds.map(id => {
-    const dest = allDestinations.find(d => d.id === id);
-    return {
-      name: dest?.title || '',
-      image: dest?.image || '',
-      desc: dest?.tagline || ''
-    };
-  }).filter(d => d.name);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
+  // Ensure isFirstRender is false on manual navigation too
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % destinations.length);
+    isFirstRender.current = false;
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + destinations.length) % destinations.length);
+    isFirstRender.current = false;
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % destinations.length);
-    }, 3500);
-
-    return () => clearInterval(timer);
-  }, [destinations.length, currentIndex]);
-
-  // Calculate visible items for infinite scroll effect
-  // We duplicate the items to create a seamless loop effect visually if we were doing infinite scroll,
-  // but for a simple slide, we can just slide the track.
-
-  const extendedDestinations = [...destinations, ...destinations.slice(0, 3)];
-  const totalItems = extendedDestinations.length;
+  const handleExplore = (targetId: string) => {
+    navigate('/destinations', { state: { scrollTo: targetId } });
+  };
 
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center">
-      {/* Background Image with Gradient Overlay */}
-      {/* Background Image with Gradient Overlay */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/hero-bg.webp"
-          alt="Beautiful travel destination in South India"
-          className="w-full h-full object-cover"
-          fetchPriority="high"
-          loading="eager"
-          width={1920}
-          height={1080}
-        />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-20 py-10 lg:py-14 w-full">
-        <div className="max-w-4xl space-y-6 mb-16">
-          {/* Heading */}
-          <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight animate-fade-in-up drop-shadow-lg"
-          >
-            Make memories with
-            <br />
-            <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-white">Dayoff Journeys</span>
-          </h1>
-
-          {/* Subheading */}
-          <p
-            className="text-lg md:text-xl text-white/90 max-w-2xl animate-fade-in-up font-light"
-            style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
-          >
-            Explore India’s most loved travel destinations — from misty hill stations and coastal retreats to heritage cities and spiritual landmarks.
-          </p>
-
-          <div
-            className="animate-fade-in-up pt-4"
-            style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}
-          >
-            <Button
-              onClick={scrollToContact}
-              className="h-14 px-8 bg-white text-black hover:bg-white/90 font-bold text-lg rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group"
+    <section className="relative h-[100dvh] w-full overflow-hidden bg-black">
+      <AnimatePresence mode='wait'>
+        {slides.map((slide, index) => (
+          index === currentSlide && (
+            <motion.div
+              key={slide.id}
+              initial={{ opacity: isFirstRender.current ? 1 : 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute inset-0"
             >
-              Explore Us
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Destination Carousel */}
-        <div className="relative overflow-hidden group/carousel py-8">
-          {/* Navigation Buttons */}
-          <div className="absolute inset-y-0 left-0 z-20 flex items-center pl-2 md:pl-4 pointer-events-none">
-            <button
-              onClick={handlePrev}
-              className="pointer-events-auto h-12 w-12 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/10 group/btn"
-              aria-label="Previous destination"
-            >
-              <ChevronLeft className="w-6 h-6 group-hover/btn:-translate-x-0.5 transition-transform" />
-            </button>
-          </div>
-          <div className="absolute inset-y-0 right-0 z-20 flex items-center pr-2 md:pr-4 pointer-events-none">
-            <button
-              onClick={handleNext}
-              className="pointer-events-auto h-12 w-12 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/10 group/btn"
-              aria-label="Next destination"
-            >
-              <ChevronRight className="w-6 h-6 group-hover/btn:translate-x-0.5 transition-transform" />
-            </button>
-          </div>
-          <div
-            className="flex transition-transform duration-700 ease-in-out md:[--visible-items:2] lg:[--visible-items:3]"
-            style={{
-              // Use CSS variables for responsiveness
-              '--items-count': totalItems,
-              '--current-index': currentIndex,
-              transform: 'translateX(calc(var(--current-index) * -100% / var(--items-count)))',
-              width: 'calc(var(--items-count) * 100% / var(--visible-items, 1))'
-            } as React.CSSProperties}
-          >
-            {extendedDestinations.map((dest, index) => (
-              <div
-                key={`${dest.name}-${index}`}
-                style={{ width: `calc(100% / var(--items-count))` }}
-                className="relative h-64 md:h-80 px-3 shrink-0" // px-3 provides the gap
-                onClick={() => handleBookNow(dest.name)}
+              {/* Background Image with Scale Animation */}
+              <motion.div
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 6, ease: "easeOut" }}
+                className="w-full h-full"
               >
-                <div className="w-full h-full rounded-3xl overflow-hidden cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 relative group">
-                  <img
-                    src={dest.image}
-                    alt={dest.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <div className="flex items-center gap-2 text-white mb-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm font-bold uppercase tracking-wider">Explore</span>
-                    </div>
-                    <h2 className="text-3xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{dest.name}</h2>
-                    <p className="text-white/80 text-sm font-medium">{dest.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                <img
+                  src={slide.image}
+                  alt={slide.headline}
+                  className="w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  // @ts-ignore
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
+              </motion.div>
+              
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+            </motion.div>
+          )
+        ))}
+      </AnimatePresence>
+
+      {/* Content Layer */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={slides[currentSlide].id}
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl mx-auto space-y-6"
+          >
+            {/* Brand Title (Fixed across slides visually via consistent rendering, but animating in here for effect) */}
+            {/* Actually requirement said "Common Elements... Fixed Tagline". Let's separate fixed elements if they shouldn't animate out.
+                But usually sliding content is nicer. Let's keep Brand/Tagline fixed? 
+                Req: "Brand Title: DayOff Journeys... Fixed Tagline... CTA Action...". 
+                Wait, if CTA redirects to DIFFERENT sections, CTA MUST be part of the slide content state.
+                Let's make Brand/Tagline animate smoothly or be static. Content below changes.
+            */}
+          </motion.div>
+        </AnimatePresence>
+        
+        {/* Fixed Top Elements (Optional) or just animate everything. 
+            User said "Common Elements for ALL Slides". 
+            Let's animate the category/headline/subline, but keep Brand Title static?
+            Actually, let's put the Brand Title at the top or just part of the flow.
+            The Requirement says: "Common Elements for ALL Slides: Brand Title... Fixed Tagline... CTA Button".
+            Wait, CTA action redirects to *corresponding destination*. So CTA button *looks* specific but action changes.
+            Let's render the container with key.
+         */}
+          
+            {/* Fixed Top Elements - Tagline & Brand */}
+            <motion.div
+               initial={{ opacity: 0, y: -20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 1 }}
+               className="mb-2 md:mb-4"
+            >
+               <p className="text-sm md:text-base text-white/80 font-medium tracking-[0.2em] uppercase mb-1">
+                 Where Memories Are Beautifully Crafted
+               </p>
+               <h2 className="text-3xl md:text-5xl font-black tracking-tighter">
+                 <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-white">
+                   DayOff Journeys
+                 </span>
+               </h2>
+            </motion.div>
+
+             <AnimatePresence mode='wait'>
+                <motion.div
+                   key={slides[currentSlide].id}
+                   className="space-y-4 md:space-y-6"
+                >
+                   {/* Category Label */}
+                   <motion.div
+                     initial={{ opacity: 0, y: 20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     exit={{ opacity: 0, y: -20 }}
+                     transition={{ duration: 0.5, delay: 0.3 }}
+                   >
+                     <span className="inline-block px-3 py-1 border border-white/30 rounded-full text-[10px] md:text-xs text-white/80 uppercase tracking-widest backdrop-blur-sm">
+                       {slides[currentSlide].category}
+                     </span>
+                   </motion.div>
+
+                   {/* Headline */}
+                   <motion.h1
+                     initial={{ opacity: 0, y: 20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     exit={{ opacity: 0, y: -10 }}
+                     transition={{ duration: 0.7, delay: 0.4 }}
+                     className="text-2xl md:text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight drop-shadow-2xl px-2"
+                   >
+                     {slides[currentSlide].headline}
+                   </motion.h1>
+
+                   {/* Supporting Line */}
+                   <motion.p
+                     initial={{ opacity: 0, y: 20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     exit={{ opacity: 0, y: -10 }}
+                     transition={{ duration: 0.7, delay: 0.5 }}
+                     className="text-sm md:text-base text-white/90 max-w-xl mx-auto font-light leading-relaxed px-4 line-clamp-3 md:line-clamp-none"
+                   >
+                     {slides[currentSlide].subline}
+                   </motion.p>
+
+                   {/* CTA Button */}
+                   <motion.div
+                     initial={{ opacity: 0, scale: 0.9 }}
+                     animate={{ opacity: 1, scale: 1 }}
+                     exit={{ opacity: 0, scale: 0.9 }}
+                     transition={{ duration: 0.5, delay: 0.6 }}
+                     className="pt-2 md:pt-4"
+                   >
+                     <Button
+                       onClick={() => handleExplore(slides[currentSlide].targetId)}
+                       size="lg"
+                       className="h-12 px-8 bg-primary hover:bg-primary/90 text-white rounded-full text-base font-semibold tracking-wide transition-all hover:scale-105 shadow-xl shadow-primary/20"
+                     >
+                       Explore Now <ArrowRight className="ml-2 w-5 h-5" />
+                     </Button>
+                   </motion.div>
+                </motion.div>
+             </AnimatePresence>
+
+             {/* Slide Indicators */}
+             <div className="mt-14 flex gap-3 z-40">
+               {slides.map((_, index) => (
+                 <button
+                   key={index}
+                   onClick={() => setCurrentSlide(index)}
+                   className={`h-1.5 rounded-full transition-all duration-500 ${
+                     index === currentSlide ? 'w-8 md:w-12 bg-primary' : 'w-2 bg-white/40 hover:bg-white/80'
+                   }`}
+                 />
+               ))}
+             </div>
+         </div>
+
+      {/* Navigation Arrows */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 z-40 pointer-events-none">
+        <button
+          onClick={handlePrev}
+          className="pointer-events-auto w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110 group"
+        >
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 group-hover:-translate-x-1 transition-transform" />
+        </button>
+        <button
+          onClick={handleNext}
+          className="pointer-events-auto w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110 group"
+        >
+          <ChevronRight className="w-6 h-6 md:w-8 md:h-8 group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
+
+
     </section>
   );
 }

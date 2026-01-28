@@ -15,54 +15,10 @@ const ContactSection = lazy(() => import('@/components/features/contact/ContactS
 const Footer = lazy(() => import('@/components/layout/Footer'));
 const FloatingWhatsApp = lazy(() => import('@/components/features/contact/FloatingWhatsApp'));
 
-interface LocationState {
-  scrollTo?: string;
-  selectedDestination?: string;
-}
+import { useScrollToLocation } from '@/hooks/useScrollToLocation';
 
 function Home() {
-  const location = useLocation();
-
-  useEffect(() => {
-    // Robust scroll logic:
-    // We combine immediate scrolling with multiple checks to handle layout shifts (loading images, skeletons replacing).
-    // This ensures that even if content expands above, we re-adjust to keep the target in view.
-    // Cast state to known type
-    const state = location.state as LocationState;
-    if (state && state.scrollTo) {
-      const elementId = state.scrollTo;
-
-      const scrollToElement = () => {
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
-
-      // 1. Initial attempt
-      setTimeout(scrollToElement, 100);
-
-      // 2. Retry sequence to catch late layout shifts
-      const timers = [
-        setTimeout(scrollToElement, 500),
-        setTimeout(scrollToElement, 1000),
-        setTimeout(scrollToElement, 2000),
-        setTimeout(scrollToElement, 3000)
-      ];
-
-      // 3. Clean up history state only after we are likely fully settled
-      const cleanupTimer = setTimeout(() => {
-        window.history.replaceState({}, '');
-      }, 3500);
-
-      return () => {
-        timers.forEach(clearTimeout);
-        clearTimeout(cleanupTimer);
-      };
-    } else if (!location.hash) {
-      window.scrollTo(0, 0);
-    }
-  }, [location]);
+  useScrollToLocation();
 
   return (
     <div className="min-h-screen w-full bg-background">
@@ -86,6 +42,7 @@ function Home() {
           "telephone": "+919633403404",
           "url": "https://dayoffjourneys.com"
         }}
+        preloadImages={['/images/kashi.webp']}
       />
       <Navigation />
       <HeroSection />
@@ -95,6 +52,10 @@ function Home() {
         minHeight ensures the scrollbar is accurate and prevents layout shifts.
         The wrapper itself acts as the placeholder until the component loads.
       */}
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <SeasonalHotspots />
+      </Suspense>
 
       <div className="hidden lg:block">
         <Suspense fallback={<SectionSkeleton />}>
@@ -112,9 +73,7 @@ function Home() {
         <ServicesSection />
       </Suspense>
 
-      <Suspense fallback={<SectionSkeleton />}>
-        <SeasonalHotspots />
-      </Suspense>
+
 
       <div id="contact" className="scroll-mt-20">
         <Suspense fallback={<SectionSkeleton />}>

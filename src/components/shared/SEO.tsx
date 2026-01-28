@@ -7,6 +7,7 @@ interface SEOProps {
     image?: string;
     type?: string;
     schema?: Record<string, any>;
+    preloadImages?: string[];
 }
 
 export default function SEO({
@@ -15,7 +16,8 @@ export default function SEO({
     canonical,
     image = '/images/hero-bg.webp',
     type = 'website',
-    schema
+    schema,
+    preloadImages = []
 }: SEOProps) {
     const siteUrl = 'https://dayoffjourneys.com';
     const fullUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
@@ -40,6 +42,11 @@ export default function SEO({
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={fullImage} />
+
+            {/* Preload Critical Images */}
+            {preloadImages.map((img) => (
+                <link key={img} rel="preload" as="image" href={img} />
+            ))}
 
             {/* Structured Data */}
             {schema && (

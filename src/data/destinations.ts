@@ -207,6 +207,37 @@ export const allDestinations: Destination[] = [
         bestTime: 'Throughout the year'
     },
     {
+        id: 'calicut',
+        title: 'Calicut (Kozhikode)',
+        location: 'Kerala',
+        description: 'The City of Spices, famous for its historic trade, beaches, and authentic Malabar cuisine.',
+        image: '/images/kozhikode.webp',
+        tags: ['City', 'Beach', 'Food'],
+        highlights: ['Kozhikode Beach', 'Mananchira Square', 'Beypore'],
+        bestTime: 'October to March',
+        tagline: 'City of Spices'
+    },
+    {
+        id: 'palakkad',
+        title: 'Palakkad',
+        location: 'Kerala',
+        description: 'The Gateway to Kerala, known for its paddy fields, misty hills, and historical fort.',
+        image: '/images/palakkad.webp',
+        tags: ['Heritage', 'Nature', 'Hills'],
+        highlights: ['Palakkad Fort', 'Malampuzha Dam', 'Silent Valley'],
+        bestTime: 'September to March'
+    },
+    {
+        id: 'kasaragod',
+        title: 'Kasaragod',
+        location: 'Kerala',
+        description: 'Land of Gods, known for its majestic forts, rivers, and rich cultural heritage.',
+        image: '/images/Kasargord.webp',
+        tags: ['Heritage', 'Forts', 'Nature'],
+        highlights: ['Bekal Fort', 'Ranipuram', 'Backwaters'],
+        bestTime: 'September to March'
+    },
+    {
         id: 'guruvayur',
         title: 'Guruvayur Temple',
         location: 'Kerala',
