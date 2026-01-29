@@ -8,8 +8,7 @@ import SectionSkeleton from '@/components/shared/SectionSkeleton';
 
 // Lazy load below-the-fold components
 const JourneyRoadmap = lazy(() => import('@/components/features/home/JourneyRoadmap'));
-const CoreServices = lazy(() => import('@/components/features/home/CoreServices'));
-const ServicesSection = lazy(() => import('@/components/features/home/ServicesSection'));
+const ServicePreviewSection = lazy(() => import('@/components/features/home/ServicePreviewSection'));
 const SeasonalHotspots = lazy(() => import('@/components/features/home/SeasonalHotspots'));
 const ContactSection = lazy(() => import('@/components/features/contact/ContactSection'));
 const Footer = lazy(() => import('@/components/layout/Footer'));
@@ -57,21 +56,15 @@ function Home() {
         <SeasonalHotspots />
       </Suspense>
 
-      <div className="hidden lg:block">
-        <Suspense fallback={<SectionSkeleton />}>
-          <JourneyRoadmap />
-        </Suspense>
-      </div>
-
-      <div id="services" className="scroll-mt-20">
-        <Suspense fallback={<SectionSkeleton />}>
-          <CoreServices />
-        </Suspense>
-      </div>
+      <Suspense fallback={<SectionSkeleton />}>
+        <JourneyRoadmap />
+      </Suspense>
 
       <Suspense fallback={<SectionSkeleton />}>
-        <ServicesSection />
+        <ServicePreviewSection />
       </Suspense>
+
+
 
 
 

@@ -23,6 +23,8 @@ export default function Navigation() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-background-dark/95 backdrop-blur-md border-b border-[#f0f4f3] dark:border-white/10">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20">
@@ -50,25 +52,45 @@ export default function Navigation() {
               <button
                 onClick={() => handleNavigation('/')}
                 onMouseEnter={() => import('@/pages/Home')}
-                className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
+                className={`text-sm font-semibold transition-colors ${
+                  isActive('/') 
+                    ? 'text-primary' 
+                    : 'text-text-main dark:text-white hover:text-primary'
+                }`}
               >
                 Home
               </button>
               <button
                 onClick={() => handleNavigation('/about')}
                 onMouseEnter={() => import('@/pages/About')}
-                className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
+                className={`text-sm font-semibold transition-colors ${
+                  isActive('/about') 
+                    ? 'text-primary' 
+                    : 'text-text-main dark:text-white hover:text-primary'
+                }`}
               >
                 About Us
               </button>
               <button
                 onClick={() => handleNavigation('/destinations')}
                 onMouseEnter={() => import('@/pages/Destinations')}
-                className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors"
+                className={`text-sm font-semibold transition-colors ${
+                  isActive('/destinations') 
+                    ? 'text-primary' 
+                    : 'text-text-main dark:text-white hover:text-primary'
+                }`}
               >
                 Destinations
               </button>
-              <button onClick={() => handleScroll('services')} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
+              <button
+                onClick={() => handleNavigation('/services')}
+                onMouseEnter={() => import('@/pages/Services')}
+                className={`text-sm font-semibold transition-colors ${
+                  isActive('/services') 
+                    ? 'text-primary' 
+                    : 'text-text-main dark:text-white hover:text-primary'
+                }`}
+              >
                 Services
               </button>
               <button onClick={() => handleScroll('contact')} className="text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors">
@@ -105,25 +127,45 @@ export default function Navigation() {
             <button
               onClick={() => handleNavigation('/')}
               onMouseEnter={() => import('@/pages/Home')}
-              className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
+              className={`block text-sm font-semibold transition-colors text-left w-full ${
+                isActive('/') 
+                  ? 'text-primary' 
+                  : 'text-text-main dark:text-white hover:text-primary'
+              }`}
             >
               Home
             </button>
             <button
               onClick={() => handleNavigation('/about')}
               onMouseEnter={() => import('@/pages/About')}
-              className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
+              className={`block text-sm font-semibold transition-colors text-left w-full ${
+                isActive('/about') 
+                  ? 'text-primary' 
+                  : 'text-text-main dark:text-white hover:text-primary'
+              }`}
             >
               About Us
             </button>
             <button
               onClick={() => handleNavigation('/destinations')}
               onMouseEnter={() => import('@/pages/Destinations')}
-              className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full"
+              className={`block text-sm font-semibold transition-colors text-left w-full ${
+                isActive('/destinations') 
+                  ? 'text-primary' 
+                  : 'text-text-main dark:text-white hover:text-primary'
+              }`}
             >
               Destinations
             </button>
-            <button onClick={() => handleScroll('services')} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">
+            <button
+              onClick={() => handleNavigation('/services')}
+              onMouseEnter={() => import('@/pages/Services')}
+              className={`block text-sm font-semibold transition-colors text-left w-full ${
+                isActive('/services') 
+                  ? 'text-primary' 
+                  : 'text-text-main dark:text-white hover:text-primary'
+              }`}
+            >
               Services
             </button>
             <button onClick={() => handleScroll('contact')} className="block text-sm font-semibold text-text-main dark:text-white hover:text-primary transition-colors text-left w-full">

@@ -23,7 +23,7 @@ export default function Footer() {
     company: [
       { name: 'Home', action: () => scrollToSection('home') },
       { name: 'About Us', action: () => navigate('/about') },
-      { name: 'Services', action: () => scrollToSection('services') },
+      { name: 'Services', action: () => navigate('/services') },
     ],
     destinations: [
       { name: 'Trending Now', action: () => scrollToSection('trending-now', '/destinations') },
