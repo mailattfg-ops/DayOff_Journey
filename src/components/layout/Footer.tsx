@@ -19,6 +19,8 @@ export default function Footer() {
     }
   };
 
+
+
   const footerLinks = {
     company: [
       { name: 'Home', action: () => scrollToSection('home') },
@@ -171,6 +173,16 @@ export default function Footer() {
             <p className="text-text-muted dark:text-gray-400 text-sm">
               © {new Date().getFullYear()} Dayoff Journeys. All rights reserved.
             </p>
+
+            <a
+              href="https://www.thinkforgeglobal.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-text-muted dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1.5 font-medium group"
+            >
+              <span>Designed & Developed by</span>
+              <span className="text-primary group-hover:underline decoration-primary/30 underline-offset-4 text-nowrap">Think Forge Global</span>
+            </a>
 
             {/* Social Icons */}
             <div className="flex items-center gap-4">
