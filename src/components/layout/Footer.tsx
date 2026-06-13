@@ -178,10 +178,10 @@ export default function Footer() {
               href="https://www.thinkforgeglobal.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-text-muted dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1.5 font-medium group"
+              className="text-sm text-text-muted dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1.5 font-semibold group"
             >
               <span>Designed & Developed by</span>
-              <span className="text-primary group-hover:underline decoration-primary/30 underline-offset-4 text-nowrap">Think Forge Global</span>
+              <span className="text-primary group-hover:underline decoration-primary/30 underline-offset-4 text-nowrap font-bold">Think Forge Global</span>
             </a>
 
             {/* Social Icons */}
